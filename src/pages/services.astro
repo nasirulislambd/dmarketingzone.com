@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Icon from '../components/Icon.astro';
+import BrandIcon from '../components/BrandIcon.astro';
+import Button from '../components/Button.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Highlight from '../components/Highlight.astro';
+import { servicesPage, serviceDetails, platforms, comingSoon, pricing, servicesFaq } from '../content/services';
+import { strategyCallLink, whatsappWith } from '../content/site';
+
+const quoteWa = whatsappWith('Assalamu alaikum, I’d like a quote for social media services for my brand.');
+---
+
+<BaseLayout
+  title="Services | Halal E-commerce Social Media Marketing"
+  description="Social media strategy, product content & Reels, organic growth, Ramadan & Eid campaigns, monthly reports and Meta ads support for halal and ethical e-commerce brands."
+>
+  <PageHero eyebrow={servicesPage.eyebrow} title={servicesPage.title} intro={servicesPage.intro}>
+    <nav aria-label="Services on this page" class="mt-10">
+      <ul class="flex flex-wrap gap-2">
+        {
+          serviceDetails.map((s) => (
+            <li>
+              <a href={`#${s.slug}`} class="inline-flex items-center gap-2 rounded-full border border-neutral-line bg-white px-4 py-2 text-sm font-semibold text-brand-green-dark transition-colors hover:border-brand-green-dark hover:bg-brand-green-dark hover:text-white">
+                <Icon name={s.icon} size={16} />
+                {s.title}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </PageHero>
+
+  <!-- SERVICE DETAILS -->
+  <section class="section" aria-label="Our services">
+    <div class="container-site space-y-6">
+      {
+        serviceDetails.map((s, i) => (
+          <article id={s.slug} class="card scroll-mt-28 grid gap-8 p-6 sm:p-10 lg:grid-cols-12" aria-labelledby={`${s.slug}-title`}>
+            <div class="lg:col-span-5">
+              <div class="flex items-center gap-4">
+                <span class:list={['flex h-14 w-14 items-center justify-center rounded-2xl', i % 2 === 0 ? 'bg-brand-green-dark text-brand-lime' : 'bg-brand-lime text-brand-green-dark']}>
+                  <Icon name={s.icon} size={26} />
+                </span>
+                <span class="font-display text-sm font-bold text-brand-green">0{i + 1}</span>
+              </div>
+              <h2 id={`${s.slug}-title`} class="mt-6 text-3xl font-bold">{s.title}</h2>
+              <p class="mt-3 text-lg text-neutral-muted">{s.what}</p>
+            </div>
+            <div class="grid gap-6 sm:grid-cols-2 lg:col-span-7">
+              <div class="rounded-2xl bg-neutral-light p-6">
+                <h3 class="flex items-center gap-2 font-sans text-sm font-bold tracking-wider text-brand-green uppercase">
+                  <Icon name="users" size={16} /> Who it’s for
+                </h3>
+                <p class="mt-3">{s.forWho}</p>
+              </div>
+              <div class="rounded-2xl bg-brand-green-tint p-6">
+                <h3 class="flex items-center gap-2 font-sans text-sm font-bold tracking-wider text-brand-green uppercase">
+                  <Icon name="check" size={16} /> What’s included
+                </h3>
+                <ul class="mt-3 space-y-2">
+                  {s.included.map((item) => (
+                    <li class="flex gap-2">
+                      <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-green" aria-hidden="true"></span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- PLATFORMS + COMING SOON -->
+  <section class="section bg-white" aria-labelledby="platforms-title">
+    <div class="container-site grid gap-14 lg:grid-cols-2">
+      <div>
+        <SectionHeading id="platforms-title" eyebrow="Platforms" title="Where we *work*" intro="We’ll recommend the platforms that make sense for your products and buyers." />
+        <ul class="mt-8 flex flex-wrap gap-3">
+          {
+            platforms.map((p) => (
+              <li class="inline-flex items-center gap-2 rounded-full bg-neutral-light py-2 pr-4 pl-2 font-semibold text-brand-green-dark">
+                <span class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-green-dark text-white">
+                  <BrandIcon name={p.icon} size={15} />
+                </span>
+                {p.name}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div>
+        <SectionHeading eyebrow="Coming soon" title="Services we *plan* to add" intro="These are not available yet. Ask us if you’d like to hear when they launch." />
+        <ul class="mt-8 grid gap-3 sm:grid-cols-2">
+          {
+            comingSoon.map((c) => (
+              <li class="flex items-center justify-between gap-3 rounded-2xl border-2 border-dashed border-neutral-line px-5 py-4">
+                <span class="font-semibold text-brand-green-dark">{c}</span>
+                <span class="shrink-0 rounded-full bg-neutral-light px-2.5 py-1 text-xs font-bold text-neutral-muted">Soon</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section" aria-labelledby="pricing-title">
+    <div class="container-site">
+      <div class="on-dark grid gap-8 overflow-hidden rounded-[2rem] bg-brand-green-dark p-8 text-white sm:p-14 lg:grid-cols-12 lg:items-center">
+        <div class="lg:col-span-7">
+          <p class="eyebrow text-brand-lime!">Pricing</p>
+          <h2 id="pricing-title" class="mt-4 text-3xl font-bold text-white sm:text-5xl"><Highlight text={pricing.title} onDark /></h2>
+          <p class="mt-5 max-w-xl text-lg text-white/80">{pricing.text}</p>
+        </div>
+        <div class="flex flex-col gap-3 lg:col-span-5 lg:items-end">
+          <Button href={strategyCallLink} size="lg">Book a Free Strategy Call</Button>
+          {quoteWa && <Button href={quoteWa} variant="light" size="lg" icon="whatsapp" target="_blank" rel="noopener">Ask for a quote on WhatsApp</Button>}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section pt-4" aria-labelledby="faq-title">
+    <div class="container-site grid gap-10 lg:grid-cols-12">
+      <div class="lg:col-span-4">
+        <SectionHeading id="faq-title" eyebrow="FAQ" title="Common *questions*" />
+      </div>
+      <div class="lg:col-span-8"><Faq items={servicesFaq} /></div>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>

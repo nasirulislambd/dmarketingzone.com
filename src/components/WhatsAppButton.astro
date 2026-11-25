@@ -1,0 +1,24 @@
+---
+/* Floating WhatsApp button (shown on every page once a number is set in src/content/site.ts). */
+import { whatsappWith } from '../content/site';
+import BrandIcon from './BrandIcon.astro';
+const link = whatsappWith('Assalamu alaikum, I found DMarketing Zone on your website.');
+---
+
+{
+  link && (
+    <a
+      href={link}
+      target="_blank"
+      rel="noopener"
+      class="group fixed right-4 bottom-4 z-30 inline-flex items-center gap-2 rounded-full bg-brand-green-dark p-1.5 font-semibold text-white shadow-[0_10px_30px_-8px_rgba(10,61,43,0.6)] ring-2 ring-white transition-all hover:-translate-y-0.5 sm:right-6 sm:bottom-6 sm:pr-5"
+    >
+      <span class="flex h-11 w-11 items-center justify-center rounded-full bg-brand-lime text-brand-green-dark">
+        <BrandIcon name="whatsapp" size={22} />
+      </span>
+      <span class="hidden sm:inline">Chat on WhatsApp</span>
+      <span class="sr-only sm:hidden">Chat on WhatsApp</span>
+      <span class="sr-only"> (opens in a new tab)</span>
+    </a>
+  )
+}

@@ -1,0 +1,95 @@
+---
+/*
+  BaseLayout: wraps every page with the <head> (SEO tags), header,
+  footer and floating WhatsApp button.
+
+  Usage on a page:
+  <BaseLayout title="Page title" description="One or two sentences for Google.">
+    ...page content...
+  </BaseLayout>
+*/
+import '../styles/global.css';
+import { site, liveSocials } from '../content/site';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string | null;
+  noindex?: boolean;
+  /** Minimal header with no menu (used on the Ramadan landing page) */
+  minimalNav?: boolean;
+  headerCta?: { label: string; href: string };
+}
+const { title, description, image = site.ogImage, noindex = false, minimalNav = false, headerCta } = Astro.props;
+
+const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const ogImage = image ? new URL(image, site.url).href : null;
+
+// Schema markup for Google. Name has no legal suffix. Only confirmed details are included.
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: site.name,
+  url: site.url,
+  description: site.tagline,
+  founder: { '@type': 'Person', name: 'Md Nasirul Islam', jobTitle: 'Founder & CEO' },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.address.street,
+    addressLocality: site.address.locality,
+    addressRegion: site.address.region,
+    addressCountry: site.address.countryCode,
+  },
+  areaServed: 'Worldwide',
+  logo: new URL(site.logoIcon, site.url).href,
+  image: new URL(site.logoIcon, site.url).href,
+  ...(site.email && { email: site.email }),
+  ...(site.whatsapp && { telephone: `+${site.whatsapp}` }),
+  ...(liveSocials.length && { sameAs: liveSocials.map((s) => s.url) }),
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" href="/brand/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#107552" />
+
+    <!-- Open Graph / social sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="en_US" />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    {ogImage && <meta property="og:image:width" content="1200" />}
+    {ogImage && <meta property="og:image:height" content="630" />}
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <Header minimal={minimalNav} ctaLabel={headerCta?.label} ctaHref={headerCta?.href} />
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+    <WhatsAppButton />
+  </body>
+</html>

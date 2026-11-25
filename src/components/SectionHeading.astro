@@ -1,0 +1,29 @@
+---
+import Highlight from './Highlight.astro';
+interface Props {
+  eyebrow?: string;
+  title: string;
+  intro?: string;
+  onDark?: boolean;
+  align?: 'center' | 'left';
+  id?: string;
+  level?: 'h1' | 'h2';
+}
+const { eyebrow, title, intro, onDark = false, align = 'left', id, level = 'h2' } = Astro.props;
+const H = level;
+---
+
+<div class:list={['max-w-2xl', align === 'center' && 'mx-auto text-center']}>
+  {eyebrow && <p class:list={['eyebrow', onDark && 'text-brand-lime! before:bg-white!']}>{eyebrow}</p>}
+  <H
+    id={id}
+    class:list={[
+      'mt-4 font-bold',
+      level === 'h1' ? 'text-4xl leading-[1.05] sm:text-5xl lg:text-6xl' : 'text-3xl leading-[1.1] sm:text-4xl lg:text-[2.75rem]',
+      onDark && 'text-white',
+    ]}
+  >
+    <Highlight text={title} onDark={onDark} />
+  </H>
+  {intro && <p class:list={['mt-5 text-lg', onDark ? 'text-white/80' : 'text-neutral-muted']}>{intro}</p>}
+</div>

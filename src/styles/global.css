@@ -1,0 +1,153 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/bricolage-grotesque';
+@import '@fontsource-variable/figtree';
+
+/*
+  DMarketing Zone design tokens
+  ------------------------------------------------------------
+  These are the ONLY colors the site may use. Tailwind's default
+  color palette is switched off on purpose, so a random color like
+  "bg-red-500" will not work. Use the brand tokens below instead,
+  for example: bg-brand-green, text-brand-lime, bg-brand-gold.
+
+  Values marked TEMPORARY are stand-ins until confirmed by the owner.
+  Change them here and the whole site updates. See TODO.md.
+*/
+@theme {
+  --color-*: initial;
+
+  /* Fixed basics */
+  --color-white: #ffffff;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* Brand (confirmed in BRAND_CONTEXT.md) */
+  --color-brand-green: #107552; /* primary: headlines, primary UI */
+  --color-brand-lime: #83c912; /* accent: highlight marker, icons, text on dark green */
+
+  /* Brand (derived shades, see TODO.md) */
+  --color-brand-green-dark: #0a3d2b; /* footer, dark bands, text on gold/lime */
+  --color-brand-green-tint: #e6f0ea; /* soft green panels */
+  --color-brand-lime-tint: #eef7dd; /* soft lime panels */
+
+  /* Gold (confirmed by the owner, 25 Nov 2026) */
+  --color-brand-gold: #c9a227; /* CTA buttons only */
+  --color-brand-gold-hover: #d6b23c;
+  --color-brand-gold-shadow: #8f7314; /* the "lip" under gold buttons */
+
+  /* TEMPORARY neutrals: warm paper tones */
+  --color-neutral-dark: #1e2b26; /* body text (13.5:1 on paper) */
+  --color-neutral-muted: #4a5853; /* secondary text (6.9:1 on paper) */
+  --color-neutral-line: #e2dfd3; /* borders and dividers */
+  --color-neutral-light: #f7f5ee; /* page and section background (paper) */
+
+  /* Placeholder marker (dev helper, not a brand color) */
+  --color-placeholder: #fff4d6;
+  --color-placeholder-ink: #6b4e00;
+
+  /* TEMPORARY fonts until the Canva brand kit fonts are confirmed */
+  --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Figtree Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+  body {
+    overflow-x: clip;
+    @apply bg-neutral-light font-sans text-[1.0625rem] text-neutral-dark antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-brand-green-dark;
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: var(--color-brand-lime);
+    color: var(--color-brand-green-dark);
+  }
+  /* Clear, visible keyboard focus everywhere */
+  :focus-visible {
+    outline: 3px solid var(--color-brand-green);
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
+  .on-dark :focus-visible {
+    outline-color: var(--color-brand-lime);
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+  .section {
+    @apply py-20 sm:py-24 lg:py-28;
+  }
+  /* Small label above headings: a lime dot + text */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-sm font-semibold tracking-wide text-brand-green;
+  }
+  .eyebrow::before {
+    content: '';
+    @apply h-2 w-2 rounded-full bg-brand-lime;
+  }
+  /* Lime highlighter behind a key word (mirrors the social post headline style) */
+  .hl-marker {
+    @apply relative whitespace-nowrap;
+    background-image: linear-gradient(
+      transparent 62%,
+      var(--color-brand-lime) 62%,
+      var(--color-brand-lime) 94%,
+      transparent 94%
+    );
+    padding-inline: 0.08em;
+    margin-inline: -0.08em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  .card {
+    @apply rounded-3xl border border-neutral-line bg-white;
+  }
+  .link-underline {
+    @apply font-semibold text-brand-green underline decoration-brand-lime decoration-2 underline-offset-4 transition-colors hover:decoration-brand-green;
+  }
+  /* Rich text for legal / long pages */
+  .prose-site h2 {
+    @apply mt-12 text-2xl font-bold;
+  }
+  .prose-site h3 {
+    @apply mt-8 text-lg font-bold;
+  }
+  .prose-site p,
+  .prose-site ul {
+    @apply mt-4 leading-relaxed text-neutral-dark;
+  }
+  .prose-site ul {
+    @apply list-disc space-y-2 pl-6;
+  }
+  .prose-site a {
+    @apply font-semibold text-brand-green underline decoration-brand-lime decoration-2 underline-offset-4;
+  }
+}

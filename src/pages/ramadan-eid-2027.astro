@@ -1,0 +1,169 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Highlight from '../components/Highlight.astro';
+import Icon from '../components/Icon.astro';
+import Button from '../components/Button.astro';
+import Placeholder from '../components/Placeholder.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { stats, whatsappWith } from '../content/site';
+import { getProject, CONCEPT_LABEL } from '../content/work';
+import { ramadanPage, keyDates, whyEarly, timeline, included, ramadanFaq } from '../content/ramadan';
+
+const wa = whatsappWith(ramadanPage.whatsappText);
+const kanz = getProject('kanz');
+const kanzEid = kanz.gallery[0];
+const barakah = getProject('barakah-bites');
+---
+
+<BaseLayout
+  title="Ramadan & Eid 2027 Marketing Campaign Planning for Halal Brands"
+  description="Early-Bird Ramadan & Eid 2027 package for halal e-commerce brands. Ramadan is expected around 8 February 2027. Plan your campaign calendar, offers and content early."
+  minimalNav
+  headerCta={{ label: ramadanPage.cta, href: ramadanPage.ctaHref }}
+>
+  <!-- HERO -->
+  <section class="on-dark relative overflow-hidden bg-brand-green-dark text-white" aria-labelledby="page-title">
+    <span class="pointer-events-none absolute -top-24 -right-24 text-brand-lime/10 sm:-top-10 sm:right-0" aria-hidden="true"><Icon name="moon" size={460} strokeWidth={0.75} /></span>
+    <div class="container-site relative grid gap-12 py-16 sm:py-20 lg:grid-cols-12 lg:items-center lg:py-28">
+      <div class="lg:col-span-7">
+        <p class="eyebrow text-brand-lime! before:bg-white!">{ramadanPage.eyebrow}</p>
+        <h1 id="page-title" class="mt-5 text-4xl leading-[1.05] font-bold text-white sm:text-6xl"><Highlight text={ramadanPage.title} onDark /></h1>
+        <p class="mt-6 max-w-xl text-lg text-white/80 sm:text-xl">{ramadanPage.intro}</p>
+        <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+          <Button href={ramadanPage.ctaHref} size="lg">{ramadanPage.cta}</Button>
+          {wa && <Button href={wa} variant="light" size="lg" icon="whatsapp" target="_blank" rel="noopener">Ask on WhatsApp</Button>}
+        </div>
+      </div>
+      <div class="lg:col-span-5">
+        <ul class="space-y-3">
+          {
+            keyDates.map((d) => (
+              <li class="rounded-3xl bg-white/5 p-6 ring-1 ring-white/15">
+                <p class="text-sm font-semibold text-white/70">{d.label}</p>
+                <p class="mt-1 font-display text-3xl font-bold text-brand-lime">{d.date}</p>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="mt-3 text-sm text-white/65">Expected dates, subject to moon sighting.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY EARLY -->
+  <section class="section" aria-labelledby="why-early-title">
+    <div class="container-site">
+      <SectionHeading id="why-early-title" eyebrow="Why plan early" title="The best Ramadan campaigns start *before* Ramadan" />
+      <ul class="mt-12 grid gap-4 md:grid-cols-3">
+        {
+          whyEarly.map((w) => (
+            <li class="card p-7">
+              <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-lime text-brand-green-dark"><Icon name={w.icon} size={24} /></span>
+              <h3 class="mt-5 text-xl font-bold">{w.title}</h3>
+              <p class="mt-2 text-neutral-muted">{w.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- INCLUDED + PRICE -->
+  <section class="section bg-white" aria-labelledby="included-title">
+    <div class="container-site grid gap-6 lg:grid-cols-12">
+      <div class="rounded-[2rem] bg-brand-lime-tint p-8 sm:p-12 lg:col-span-7">
+        <h2 id="included-title" class="text-3xl font-bold sm:text-4xl">What’s <Highlight text="*included*" /></h2>
+        <ul class="mt-8 space-y-4">
+          {
+            included.map((item) => (
+              <li class="flex items-start gap-3 text-lg">
+                <span class="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-green-dark text-brand-lime"><Icon name="check" size={16} strokeWidth={3} /></span>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+        <div class="mt-8"><Placeholder note="full list of what the Early-Bird package includes" /></div>
+      </div>
+      <div class="card flex flex-col justify-between p-8 sm:p-12 lg:col-span-5">
+        <div>
+          <p class="eyebrow">Early-Bird price</p>
+          <div class="mt-6 space-y-3">
+            <Placeholder note="Early-Bird price" block />
+            <Placeholder note="Early-Bird deadline" block />
+          </div>
+          <p class="mt-6 text-neutral-muted">Tell us about your brand and we’ll send you the package details and a quote.</p>
+        </div>
+        <div class="mt-8"><Button href={ramadanPage.ctaHref} size="lg" class="w-full sm:w-auto">{ramadanPage.cta}</Button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="section" aria-labelledby="timeline-title">
+    <div class="container-site">
+      <SectionHeading id="timeline-title" eyebrow="Campaign timeline" title="From planning to *Eid*" />
+      <ol class="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {
+          timeline.map((t, i) => (
+            <li class:list={['relative rounded-3xl p-7', i === timeline.length - 1 ? 'on-dark bg-brand-green-dark text-white' : 'card']}>
+              <span class:list={['font-display text-5xl font-bold', i === timeline.length - 1 ? 'text-brand-lime' : 'text-transparent [-webkit-text-stroke:1.5px_var(--color-brand-green)]']} aria-hidden="true">0{i + 1}</span>
+              <h3 class:list={['mt-4 text-xl font-bold', i === timeline.length - 1 && 'text-white']}>{t.phase}</h3>
+              <p class:list={['mt-1 text-sm font-semibold', i === timeline.length - 1 ? 'text-brand-lime' : 'text-brand-green']}>{t.when}</p>
+              <p class:list={['mt-3', i === timeline.length - 1 ? 'text-white/80' : 'text-neutral-muted']}>{t.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- PROOF -->
+  <section class="section bg-white" aria-labelledby="proof-title">
+    <div class="container-site">
+      <SectionHeading id="proof-title" eyebrow="Proof" title="Trusted by *100+* clients worldwide" />
+      <ul class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+        {
+          stats.map((s) => (
+            <li class="rounded-3xl bg-neutral-light p-5 text-center">
+              <p class="font-display text-3xl font-bold text-brand-green-dark">{s.value}</p>
+              <p class="mt-1 text-sm text-neutral-muted">{s.label}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mt-10 grid gap-4 md:grid-cols-2">
+        <a href="/work#kanz" class="group card grid overflow-hidden sm:grid-cols-2">
+          <Image src={kanzEid.src} alt={kanzEid.alt} widths={[320, 480]} sizes="(min-width: 768px) 280px, 100vw" class="aspect-[4/5] h-full w-full object-cover" />
+          <div class="p-6">
+            <span class="inline-block rounded-full bg-brand-lime px-3 py-1 text-xs font-bold text-brand-green-dark uppercase">Client work</span>
+            <h3 class="mt-4 text-2xl font-bold">Kanz Eid giveaway</h3>
+            <p class="mt-2 text-neutral-muted">An Eid giveaway campaign for Kanz, a modest menswear and Islamic traditional fashion brand.</p>
+          </div>
+        </a>
+        <a href="/work#barakah-bites" class="group card grid overflow-hidden sm:grid-cols-2">
+          <Image src={barakah.cover!.src} alt={barakah.cover!.alt} widths={[320, 480]} sizes="(min-width: 768px) 280px, 100vw" class="aspect-[4/5] h-full w-full object-cover" />
+          <div class="p-6">
+            <span class="inline-block rounded-full bg-brand-green-dark px-3 py-1 text-xs font-bold text-white uppercase">{CONCEPT_LABEL}</span>
+            <h3 class="mt-4 text-2xl font-bold">Barakah Bites</h3>
+            <p class="mt-2 text-neutral-muted">A demo halal snack brand: posts, carousel, Stories and Reels.</p>
+            <p class="mt-3 text-sm font-semibold text-brand-green-dark">{barakah.label}</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" aria-labelledby="faq-title">
+    <div class="container-site grid gap-10 lg:grid-cols-12">
+      <div class="lg:col-span-4"><SectionHeading id="faq-title" eyebrow="FAQ" title="Ramadan *questions*" /></div>
+      <div class="lg:col-span-8"><Faq items={ramadanFaq} /></div>
+    </div>
+  </section>
+
+  <CtaBand title="Get your *Ramadan* plan" text="Tell us about your brand and products. We’ll send you the Early-Bird package details and a plan for your Ramadan & Eid 2027 campaign." cta={ramadanPage.cta} href={ramadanPage.ctaHref} whatsappText={ramadanPage.whatsappText} />
+</BaseLayout>

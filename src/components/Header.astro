@@ -1,0 +1,147 @@
+---
+import { nav, strategyCallLink } from '../content/site';
+import Logo from './Logo.astro';
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  /** Minimal header (logo + one button), used on the Ramadan landing page */
+  minimal?: boolean;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+const { minimal = false, ctaLabel = 'Book a Free Strategy Call', ctaHref = strategyCallLink } = Astro.props;
+
+const current = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isCurrent = (href: string) =>
+  href === '/' ? current === '/' : current === href || current.startsWith(href + '/');
+---
+
+<header class="sticky top-0 z-40 border-b border-neutral-line/80 bg-neutral-light/90 backdrop-blur-md">
+  <a
+    href="#main"
+    class="sr-only rounded-md bg-brand-green px-4 py-2 font-semibold text-white focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50"
+  >
+    Skip to content
+  </a>
+  <div class="container-site flex h-[4.5rem] items-center justify-between gap-4 lg:h-20">
+    <a href="/" class="shrink-0" aria-label="DMarketing Zone, home">
+      <Logo />
+    </a>
+
+    {
+      !minimal && (
+        <nav aria-label="Main" class="hidden lg:block">
+          <ul class="flex items-center gap-1 rounded-full border border-neutral-line bg-white/70 p-1">
+            {nav.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  aria-current={isCurrent(item.href) ? 'page' : undefined}
+                  class:list={[
+                    'block rounded-full px-4 py-2 text-[0.95rem] font-semibold transition-colors',
+                    isCurrent(item.href)
+                      ? 'bg-brand-green-dark text-white'
+                      : 'text-neutral-dark hover:bg-brand-green-tint hover:text-brand-green-dark',
+                  ]}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )
+    }
+
+    <div class="flex items-center gap-2">
+      <span class:list={[!minimal && 'hidden sm:block']}>
+        <Button href={ctaHref}>
+          {minimal ? (
+            <>
+              <span class="sm:hidden">Get started</span>
+              <span class="hidden sm:inline">{ctaLabel}</span>
+            </>
+          ) : (
+            ctaLabel
+          )}
+        </Button>
+      </span>
+      {
+        !minimal && (
+          <button
+            type="button"
+            class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-brand-green-dark text-white lg:hidden"
+            aria-controls="mobile-menu"
+            aria-expanded="false"
+            data-menu-toggle
+          >
+            <span class="sr-only" data-menu-label>
+              Open menu
+            </span>
+            <span data-icon-open>
+              <Icon name="menu" size={22} />
+            </span>
+            <span data-icon-close class="hidden">
+              <Icon name="x" size={22} />
+            </span>
+          </button>
+        )
+      }
+    </div>
+  </div>
+
+  {
+    !minimal && (
+      <nav id="mobile-menu" aria-label="Mobile" class="hidden border-t border-neutral-line bg-neutral-light lg:hidden" data-menu>
+        <ul class="container-site flex flex-col py-4">
+          {nav.map((item, i) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isCurrent(item.href) ? 'page' : undefined}
+                class:list={[
+                  'flex items-baseline gap-4 rounded-2xl px-3 py-3 font-display text-2xl font-semibold',
+                  isCurrent(item.href) ? 'bg-brand-green-dark text-white' : 'text-brand-green-dark hover:bg-brand-green-tint',
+                ]}
+              >
+                <span class:list={['font-sans text-xs font-bold', isCurrent(item.href) ? 'text-brand-lime' : 'text-brand-green']}>
+                  0{i + 1}
+                </span>
+                {item.label}
+              </a>
+            </li>
+          ))}
+          <li class="mt-4 mb-2 sm:hidden">
+            <Button href={ctaHref} size="lg" class="w-full">
+              {ctaLabel}
+            </Button>
+          </li>
+        </ul>
+      </nav>
+    )
+  }
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = document.querySelector<HTMLElement>('[data-menu]');
+  if (toggle && menu) {
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      menu.classList.toggle('hidden', !open);
+      toggle.querySelector('[data-icon-open]')?.classList.toggle('hidden', open);
+      toggle.querySelector('[data-icon-close]')?.classList.toggle('hidden', !open);
+      const label = toggle.querySelector('[data-menu-label]');
+      if (label) label.textContent = open ? 'Close menu' : 'Open menu';
+    };
+    toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+    window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => e.matches && setOpen(false));
+  }
+</script>

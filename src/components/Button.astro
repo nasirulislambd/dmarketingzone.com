@@ -1,0 +1,74 @@
+---
+/*
+  Button: a link styled as a button.
+  variant="gold"    → main call to action (gold is used ONLY here)
+  variant="outline" → secondary action on light backgrounds
+  variant="light"   → secondary action on dark green backgrounds
+  variant="lime"    → WhatsApp / secondary action on dark backgrounds
+
+  icon: "arrow" (default) shows a round badge with an arrow that turns
+  upward on hover, like the growth arrow in the logo. icon="whatsapp"
+  shows the WhatsApp logo instead. icon={false} hides it.
+*/
+import Icon from './Icon.astro';
+import BrandIcon from './BrandIcon.astro';
+interface Props {
+  href: string;
+  variant?: 'gold' | 'outline' | 'light' | 'lime';
+  size?: 'md' | 'lg';
+  icon?: 'arrow' | 'whatsapp' | false;
+  class?: string;
+  [key: string]: unknown;
+}
+const { href, variant = 'gold', size = 'md', icon = 'arrow', class: className = '', ...rest } = Astro.props;
+
+const variants = {
+  gold: 'bg-brand-gold text-brand-green-dark shadow-[0_3px_0_var(--color-brand-gold-shadow)] hover:bg-brand-gold-hover hover:shadow-[0_5px_0_var(--color-brand-gold-shadow)] active:translate-y-[3px] active:shadow-[0_0_0_var(--color-brand-gold-shadow)]',
+  outline: 'bg-white text-brand-green-dark ring-2 ring-brand-green-dark ring-inset hover:bg-brand-green-dark hover:text-white',
+  light: 'text-white ring-2 ring-white/60 ring-inset hover:bg-white hover:text-brand-green-dark',
+  lime: 'bg-brand-lime text-brand-green-dark shadow-[0_3px_0_var(--color-brand-green)] hover:shadow-[0_5px_0_var(--color-brand-green)] active:translate-y-[3px] active:shadow-none',
+};
+const badge = {
+  gold: 'bg-brand-green-dark text-brand-lime',
+  outline: 'bg-brand-green-dark text-brand-lime group-hover:bg-brand-lime group-hover:text-brand-green-dark',
+  light: 'bg-white text-brand-green-dark group-hover:bg-brand-green-dark group-hover:text-brand-lime',
+  lime: 'bg-brand-green-dark text-brand-lime',
+};
+const sizes = {
+  md: icon ? 'py-1.5 pr-1.5 pl-5 text-[0.95rem] gap-3' : 'px-5 py-2.5 text-[0.95rem]',
+  lg: icon ? 'py-2 pr-2 pl-6 text-base gap-4' : 'px-7 py-3.5 text-base',
+};
+const badgeSize = size === 'lg' ? 'h-10 w-10' : 'h-8 w-8';
+---
+
+<a
+  href={href}
+  class:list={[
+    'group inline-flex items-center justify-between rounded-full font-semibold whitespace-nowrap transition-all duration-200 hover:-translate-y-0.5',
+    variants[variant],
+    sizes[size],
+    className,
+  ]}
+  {...rest}
+>
+  <span><slot /></span>
+  {
+    icon && (
+      <span
+        class:list={[
+          'flex shrink-0 items-center justify-center rounded-full transition-all duration-300',
+          badgeSize,
+          badge[variant],
+        ]}
+      >
+        {icon === 'whatsapp' ? (
+          <BrandIcon name="whatsapp" size={size === 'lg' ? 20 : 17} />
+        ) : (
+          <span class="transition-transform duration-300 ease-spring group-hover:-rotate-45">
+            <Icon name="arrow-right" size={size === 'lg' ? 20 : 17} strokeWidth={2.5} />
+          </span>
+        )}
+      </span>
+    )
+  }
+</a>

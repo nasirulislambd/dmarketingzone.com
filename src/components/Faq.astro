@@ -1,0 +1,24 @@
+---
+/* FAQ accordion. Works without JavaScript (uses <details>). */
+import Icon from './Icon.astro';
+interface Props {
+  items: { q: string; a: string }[];
+}
+const { items } = Astro.props;
+---
+
+<div class="divide-y divide-neutral-line border-y border-neutral-line">
+  {
+    items.map((item) => (
+      <details class="group py-2">
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-6 rounded-xl py-4 text-left font-display text-lg font-semibold text-brand-green-dark [&::-webkit-details-marker]:hidden">
+          {item.q}
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-green-tint text-brand-green transition-transform duration-300 group-open:rotate-45 group-open:bg-brand-lime group-open:text-brand-green-dark">
+            <Icon name="plus" size={18} strokeWidth={2.5} />
+          </span>
+        </summary>
+        <p class="max-w-3xl pr-12 pb-5 text-neutral-muted">{item.a}</p>
+      </details>
+    ))
+  }
+</div>

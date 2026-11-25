@@ -1,0 +1,400 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import Highlight from '../components/Highlight.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Placeholder from '../components/Placeholder.astro';
+import GrowthLine from '../components/GrowthLine.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site, stats, strategyCallLink } from '../content/site';
+import { hero, whoWeServe, services, whyUs, featuredWork, ramadanBanner, howWeWork, testimonials, finalCta } from '../content/home';
+import { getProject, CONCEPT_LABEL } from '../content/work';
+
+const kanz = getProject('kanz');
+const turca = getProject('a-la-turca');
+const barakah = getProject('barakah-bites');
+const zaytoun = getProject('zaytoun-skincare');
+const hebah = getProject('hebah');
+const olm = getProject('our-little-muslims');
+
+const serviceBy = (slug: string) => services.items.find((s) => s.slug === slug)!;
+const [featuredReview, ...otherReviews] = [
+  ...testimonials.filter((t) => t.name === 'Kanz'),
+  ...testimonials.filter((t) => t.name !== 'Kanz'),
+];
+---
+
+<BaseLayout
+  title="DMarketing Zone | Halal E-commerce Social Media & Marketing Agency"
+  description="Social media strategy, product content, Ramadan & Eid campaigns and monthly reports for halal food, modest fashion, organic, supplement and ethical e-commerce brands."
+>
+  <!-- HERO -->
+  <section class="relative overflow-hidden" aria-labelledby="hero-title">
+    <div class="container-site grid items-center gap-14 pt-10 pb-20 sm:pt-14 lg:grid-cols-12 lg:gap-8 lg:pt-16 lg:pb-28">
+      <div class="lg:col-span-7">
+        <p class="inline-flex items-center gap-2 rounded-full border border-neutral-line bg-white px-3 py-1.5 text-sm font-semibold text-brand-green">
+          <span class="h-2 w-2 rounded-full bg-brand-lime"></span>
+          {hero.eyebrow}
+        </p>
+        <h1 id="hero-title" class="mt-6 text-[2.6rem] leading-[1.02] font-bold sm:text-6xl lg:text-[4.1rem]">
+          <Highlight text={hero.title} />
+        </h1>
+        <p class="mt-7 max-w-xl text-lg text-neutral-muted sm:text-xl">{hero.subtitle}</p>
+        <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <Button href={strategyCallLink} size="lg">{hero.primaryCta}</Button>
+          <Button href="/work" variant="outline" size="lg">{hero.secondaryCta}</Button>
+        </div>
+        <p class="mt-8 flex items-center gap-3 text-sm text-neutral-muted">
+          <span class="flex gap-0.5 text-brand-green" aria-hidden="true">
+            {[1, 2, 3, 4, 5].map(() => <Icon name="star" size={16} class="fill-current" />)}
+          </span>
+          {
+            site.fiverrUrl ? (
+              <a href={site.fiverrUrl} class="link-underline" rel="noopener" target="_blank">
+                {hero.proof}
+              </a>
+            ) : (
+              <span class="font-semibold text-neutral-dark">{hero.proof}</span>
+            )
+          }
+        </p>
+      </div>
+
+      <!-- Collage of real work -->
+      <div class="relative mx-auto h-[25rem] w-full max-w-md sm:h-[32rem] lg:col-span-5 lg:max-w-none" aria-label="Examples of our work">
+        <figure class="absolute top-6 left-0 w-[54%] -rotate-6 transition-transform duration-500 hover:rotate-0">
+          <Image src={kanz.cover!.src} alt={kanz.cover!.alt} widths={[240, 360, 480]} sizes="(min-width: 1024px) 240px, 50vw" loading="eager" class="aspect-[4/5] w-full rounded-2xl object-cover shadow-2xl ring-4 ring-white" />
+          <figcaption class="absolute top-3 left-3 rounded-full bg-white px-3 py-1 text-xs font-bold text-brand-green-dark shadow">Kanz · client</figcaption>
+        </figure>
+        <figure class="absolute top-0 right-0 w-[48%] rotate-[5deg] transition-transform duration-500 hover:rotate-0">
+          <Image src={turca.cover!.src} alt={turca.cover!.alt} widths={[240, 360, 480]} sizes="(min-width: 1024px) 220px, 45vw" loading="eager" class="aspect-[4/5] w-full rounded-2xl object-cover shadow-2xl ring-4 ring-white" />
+          <figcaption class="absolute top-3 right-3 rounded-full bg-white px-3 py-1 text-xs font-bold text-brand-green-dark shadow">A La Turca · client</figcaption>
+        </figure>
+        <figure class="absolute right-[10%] bottom-0 w-[50%] -rotate-2 transition-transform duration-500 hover:rotate-0">
+          <Image src={barakah.cover!.src} alt={barakah.cover!.alt} widths={[240, 360, 480]} sizes="(min-width: 1024px) 230px, 48vw" loading="eager" class="aspect-[4/5] w-full rounded-2xl object-cover shadow-2xl ring-4 ring-white" />
+          <figcaption class="absolute -bottom-3 left-3 rounded-full bg-brand-green-dark px-3 py-1 text-xs font-bold text-white shadow">Barakah Bites · {CONCEPT_LABEL.toLowerCase()}</figcaption>
+        </figure>
+        <div class="absolute bottom-10 left-[2%] flex h-28 w-28 rotate-[-8deg] flex-col items-center justify-center rounded-full bg-brand-green-dark text-center text-white shadow-xl ring-4 ring-neutral-light sm:h-32 sm:w-32">
+          <span class="font-display text-3xl leading-none font-bold text-brand-lime sm:text-4xl">100+</span>
+          <span class="mt-1 text-[0.7rem] leading-tight font-semibold">clients<br />worldwide</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <section aria-label="Our track record" class="on-dark bg-brand-green-dark text-white">
+    <div class="container-site">
+      <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+        {
+          stats.map((s, i) => (
+            <li
+              class:list={[
+                'border-white/10 px-2 py-8 text-center lg:border-l lg:first:border-l-0',
+                i === stats.length - 1 && 'col-span-2 sm:col-span-1',
+              ]}
+            >
+              <p class="font-display text-4xl font-bold text-brand-lime sm:text-[2.6rem]">{s.value}</p>
+              <p class="mt-1 text-sm text-white/75">{s.label}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- WHO WE SERVE -->
+  <section class="section" aria-labelledby="serve-title">
+    <div class="container-site grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-5">
+        <div class="lg:sticky lg:top-32">
+          <SectionHeading id="serve-title" eyebrow={whoWeServe.eyebrow} title={whoWeServe.title} intro={whoWeServe.intro} />
+          <p class="mt-6 text-neutral-muted">
+            Not sure if you’re a fit? <a href="/contact" class="link-underline">Tell us about your brand</a>.
+          </p>
+        </div>
+      </div>
+      <ol class="lg:col-span-7">
+        {
+          whoWeServe.niches.map((n, i) => (
+            <li class="group flex gap-5 border-t border-neutral-line py-7 transition-colors last:border-b sm:gap-8">
+              <span class="pt-1 font-display text-sm font-bold text-brand-green">0{i + 1}</span>
+              <div class="flex-1">
+                <h3 class="text-2xl font-semibold sm:text-[1.75rem]">{n.title}</h3>
+                <p class="mt-2 max-w-lg text-neutral-muted">{n.text}</p>
+              </div>
+              <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white text-brand-green ring-1 ring-neutral-line transition-all duration-300 group-hover:-rotate-6 group-hover:bg-brand-lime group-hover:text-brand-green-dark group-hover:ring-brand-lime">
+                <Icon name={n.icon} size={26} />
+              </span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- SERVICES (bento grid) -->
+  <section class="section bg-white" aria-labelledby="services-title">
+    <div class="container-site">
+      <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <SectionHeading id="services-title" eyebrow={services.eyebrow} title={services.title} intro={services.intro} />
+        <Button href="/services" variant="outline">All services</Button>
+      </div>
+
+      <div class="mt-12 grid gap-4 md:grid-cols-2 lg:auto-rows-[minmax(13rem,auto)] lg:grid-cols-4">
+        <!-- Strategy: the anchor service -->
+        <a href="/services#strategy" class="group on-dark relative overflow-hidden rounded-3xl bg-brand-green-dark p-8 text-white md:col-span-2 lg:row-span-2">
+          <GrowthLine class="absolute -right-8 -bottom-6 w-72 text-brand-green transition-colors duration-500 group-hover:text-brand-lime" strokeWidth={14} />
+          <span class="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-lime text-brand-green-dark">
+            <Icon name="target" size={28} />
+          </span>
+          <h3 class="relative mt-8 max-w-sm text-3xl font-bold text-white sm:text-4xl">{serviceBy('strategy').title}</h3>
+          <p class="relative mt-4 max-w-md text-lg text-white/80">{serviceBy('strategy').text}</p>
+          <ul class="relative mt-8 flex flex-wrap gap-2 text-sm">
+            {['Your products', 'Your audience', 'The halal buyer’s journey'].map((t) => <li class="rounded-full border border-white/25 px-3 py-1">{t}</li>)}
+          </ul>
+        </a>
+
+        <!-- Content & Reels with a real Reel still -->
+        <a href="/services#content" class="group card relative flex flex-col overflow-hidden p-6 transition-shadow hover:shadow-xl lg:row-span-2">
+          <div class="relative -mx-6 -mt-6 mb-6 h-44 overflow-hidden bg-brand-green-tint lg:h-56">
+            <img src="/media/reels/kanz-reel-poster.jpg" alt="" width="540" height="960" loading="lazy" class="absolute inset-0 h-full w-full object-cover object-[50%_35%] transition-transform duration-700 group-hover:scale-105" />
+            <span class="absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-brand-green-dark">
+              <Icon name="clapperboard" size={14} /> Reel for Kanz
+            </span>
+          </div>
+          <h3 class="text-xl font-bold">{serviceBy('content').title}</h3>
+          <p class="mt-2 text-neutral-muted">{serviceBy('content').text}</p>
+        </a>
+
+        <a href="/services#organic-growth" class="group card p-6 transition-shadow hover:shadow-xl">
+          <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-green-tint text-brand-green transition-colors group-hover:bg-brand-lime group-hover:text-brand-green-dark"><Icon name="sprout" size={24} /></span>
+          <h3 class="mt-5 text-xl font-bold">{serviceBy('organic-growth').title}</h3>
+          <p class="mt-2 text-neutral-muted">{serviceBy('organic-growth').text}</p>
+        </a>
+
+        <!-- Reports with a small decorative bar chart -->
+        <a href="/services#reports" class="group card flex flex-col p-6 transition-shadow hover:shadow-xl">
+          <div class="flex h-12 items-end gap-1.5" aria-hidden="true">
+            {[30, 45, 40, 62, 78, 100].map((h, i) => (
+              <span class:list={['w-3 rounded-t-md transition-all duration-500', i === 5 ? 'bg-brand-lime' : 'bg-brand-green/25 group-hover:bg-brand-green/40']} style={`height:${h}%`}></span>
+            ))}
+          </div>
+          <h3 class="mt-5 text-xl font-bold">{serviceBy('reports').title}</h3>
+          <p class="mt-2 text-neutral-muted">{serviceBy('reports').text}</p>
+        </a>
+
+        <a href="/services#ramadan-eid" class="group relative overflow-hidden rounded-3xl bg-brand-lime-tint p-6 transition-shadow hover:shadow-xl md:col-span-2">
+          <span class="absolute -top-6 -right-6 text-brand-lime/60 transition-transform duration-700 group-hover:rotate-12" aria-hidden="true"><Icon name="moon" size={150} strokeWidth={1.25} /></span>
+          <p class="relative text-sm font-bold text-brand-green">Seasonal speciality</p>
+          <h3 class="relative mt-2 max-w-sm text-2xl font-bold">{serviceBy('ramadan-eid').title}</h3>
+          <p class="relative mt-2 max-w-md text-neutral-muted">{serviceBy('ramadan-eid').text}</p>
+        </a>
+
+        <a href="/services#ai-workflow" class="group card p-6 transition-shadow hover:shadow-xl">
+          <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-green-tint text-brand-green transition-colors group-hover:bg-brand-lime group-hover:text-brand-green-dark"><Icon name="wand-sparkles" size={24} /></span>
+          <h3 class="mt-5 text-xl font-bold">{serviceBy('ai-workflow').title}</h3>
+          <p class="mt-2 text-neutral-muted">{serviceBy('ai-workflow').text}</p>
+        </a>
+
+        <a href="/services#paid-ads" class="group card p-6 transition-shadow hover:shadow-xl">
+          <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-green-tint text-brand-green transition-colors group-hover:bg-brand-lime group-hover:text-brand-green-dark"><Icon name="megaphone" size={24} /></span>
+          <h3 class="mt-5 text-xl font-bold">{serviceBy('paid-ads').title}</h3>
+          <p class="mt-2 text-neutral-muted">{serviceBy('paid-ads').text}</p>
+        </a>
+
+      </div>
+        <div class="flex flex-col gap-4 mt-4 rounded-3xl border-2 border-dashed border-neutral-line p-6 lg:flex-row lg:items-center">
+          <p class="inline-flex w-fit shrink-0 rounded-full bg-brand-green-dark px-3 py-1 text-xs font-bold tracking-wide text-white uppercase">Coming soon</p>
+          <ul class="flex flex-wrap gap-2">
+            {services.comingSoon.map((c) => <li class="rounded-full bg-neutral-light px-3 py-1.5 text-sm text-neutral-muted">{c}</li>)}
+          </ul>
+        </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="section" aria-labelledby="why-title">
+    <div class="container-site">
+      <SectionHeading id="why-title" eyebrow={whyUs.eyebrow} title={whyUs.title} intro={whyUs.intro} />
+      <ol class="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          whyUs.items.map((w, i) => (
+            <li class="border-t-2 border-brand-green-dark pt-6">
+              <div class="flex items-start justify-between">
+                <span class="font-display text-6xl leading-none font-bold text-transparent [-webkit-text-stroke:1.5px_var(--color-brand-green)]" aria-hidden="true">
+                  0{i + 1}
+                </span>
+                <span class="flex h-11 w-11 items-center justify-center rounded-full bg-brand-lime text-brand-green-dark">
+                  <Icon name={w.icon} size={22} />
+                </span>
+              </div>
+              <h3 class="mt-6 text-xl font-bold">{w.title}</h3>
+              <p class="mt-2 text-neutral-muted">{w.text}</p>
+            </li>
+          ))
+        }
+        <li class="flex flex-col justify-between rounded-3xl bg-brand-green-dark p-6 text-white on-dark">
+          <p class="font-display text-2xl leading-snug font-semibold text-white">Want to see how this would work for your brand?</p>
+          <div class="mt-6"><Button href={strategyCallLink}>Book a Free Strategy Call</Button></div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- FEATURED WORK -->
+  <section class="section bg-white" aria-labelledby="work-title">
+    <div class="container-site">
+      <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <SectionHeading id="work-title" eyebrow={featuredWork.eyebrow} title={featuredWork.title} intro={featuredWork.intro} />
+        <Button href="/work" variant="outline">See all our work</Button>
+      </div>
+
+      <div class="mt-12 grid gap-4 md:grid-cols-12">
+        {
+          [
+            { p: kanz, span: 'md:col-span-7', aspect: 'aspect-[4/5] md:aspect-auto md:h-[36rem]' },
+            { p: turca, span: 'md:col-span-5', aspect: 'aspect-[4/5] md:aspect-auto md:h-[36rem]' },
+            { p: barakah, span: 'md:col-span-6', aspect: 'aspect-[4/5] md:aspect-square' },
+            { p: zaytoun, span: 'md:col-span-6', aspect: 'aspect-[4/5] md:aspect-square' },
+          ].map(({ p, span, aspect }) => (
+            <a href={`/work#${p.slug}`} class:list={['group relative block overflow-hidden rounded-3xl bg-brand-green-dark', span]}>
+              <Image
+                src={p.cover!.src}
+                alt={p.cover!.alt}
+                widths={[400, 640, 900]}
+                sizes="(min-width: 1024px) 640px, (min-width: 768px) 55vw, 100vw"
+                class:list={['w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]', aspect, p.type === 'concept' && 'object-[50%_30%]']}
+              />
+              <div class="absolute inset-x-0 bottom-0 bg-linear-to-t from-brand-green-dark via-brand-green-dark/85 to-transparent p-6 pt-20 text-white on-dark">
+                <span class:list={['inline-block rounded-full px-3 py-1 text-xs font-bold uppercase', p.type === 'concept' ? 'bg-white text-brand-green-dark' : 'bg-brand-lime text-brand-green-dark']}>
+                  {p.type === 'concept' ? CONCEPT_LABEL : 'Client work'}
+                </span>
+                <h3 class="mt-3 text-2xl font-bold text-white">{p.name}</h3>
+                <p class="mt-1 text-sm text-white/80">{p.category}</p>
+                {p.label && <p class="mt-3 max-w-md text-sm text-white/90">{p.label}</p>}
+              </div>
+            </a>
+          ))
+        }
+      </div>
+      <p class="mt-8 text-neutral-muted">
+        We have also worked with <strong class="text-brand-green-dark">{hebah.name}</strong> (Instagram Reel editing) and{' '}
+        <strong class="text-brand-green-dark">{olm.name}</strong> (content creation).
+      </p>
+    </div>
+  </section>
+
+  <!-- RAMADAN & EID 2027 BANNER -->
+  <section class="section" aria-labelledby="ramadan-title">
+    <div class="container-site">
+      <div class="on-dark relative grid gap-10 overflow-hidden rounded-[2rem] bg-brand-green-dark px-6 py-12 text-white sm:px-12 sm:py-16 lg:grid-cols-12">
+        <span class="pointer-events-none absolute -top-16 -left-16 text-white/5" aria-hidden="true"><Icon name="moon" size={320} strokeWidth={1} /></span>
+        <div class="relative lg:col-span-7">
+          <p class="eyebrow text-brand-lime!">{ramadanBanner.eyebrow}</p>
+          <h2 id="ramadan-title" class="mt-4 text-3xl leading-[1.1] font-bold text-white sm:text-5xl">
+            <Highlight text={ramadanBanner.title} onDark />
+          </h2>
+          <p class="mt-5 max-w-xl text-lg text-white/80">{ramadanBanner.text}</p>
+          <div class="mt-9"><Button href="/ramadan-eid-2027" size="lg">{ramadanBanner.cta}</Button></div>
+        </div>
+        <ol class="relative space-y-0 lg:col-span-5 lg:self-center" aria-label="Season timeline">
+          {
+            [
+              { when: 'Now – January', what: 'Plan the calendar, offers and content' },
+              { when: 'Around 8 Feb 2027', what: 'Ramadan expected to begin' },
+              { when: 'Last 10 nights', what: 'Gift guides, reminders and peak offers' },
+              { when: 'Around 9–10 Mar 2027', what: 'Eid al-Fitr expected' },
+            ].map((s, i, arr) => (
+              <li class="relative flex gap-4 pb-6 last:pb-0">
+                {i < arr.length - 1 && <span class="absolute top-6 left-[0.6875rem] h-full w-0.5 bg-white/20" aria-hidden="true"></span>}
+                <span class:list={['relative mt-1 h-6 w-6 shrink-0 rounded-full ring-4 ring-brand-green-dark', i === 0 ? 'bg-brand-lime' : 'bg-white/30']}></span>
+                <div>
+                  <p class="font-display text-lg font-semibold text-brand-lime">{s.when}</p>
+                  <p class="text-white/80">{s.what}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW WE WORK -->
+  <section class="section pt-4" aria-labelledby="process-title">
+    <div class="container-site">
+      <div class="flex flex-col items-start gap-4">
+        <SectionHeading id="process-title" eyebrow={howWeWork.eyebrow} title={howWeWork.title} />
+        <Placeholder note={howWeWork.placeholder} />
+      </div>
+      <ol class="relative mt-14 grid gap-10 md:grid-cols-4 md:gap-6">
+        <span class="absolute top-6 right-[12%] left-[12%] hidden h-0.5 bg-[repeating-linear-gradient(90deg,var(--color-brand-green)_0_8px,transparent_8px_16px)] md:block" aria-hidden="true"></span>
+        {
+          howWeWork.steps.map((step, i) => (
+            <li class="relative flex gap-5 md:flex-col md:items-center md:text-center">
+              <span class:list={['relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full font-display text-lg font-bold ring-8 ring-neutral-light', i === howWeWork.steps.length - 1 ? 'bg-brand-lime text-brand-green-dark' : 'bg-brand-green-dark text-white']} aria-hidden="true">
+                {i + 1}
+              </span>
+              <div>
+                <h3 class="text-xl font-bold md:mt-5">
+                  <span class="sr-only">Step {i + 1}: </span>
+                  {step.title}
+                </h3>
+                <p class="mt-2 text-neutral-muted">{step.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS (real Fiverr reviews, edit in src/content/home.ts; hidden if the list is empty) -->
+  {
+    featuredReview && (
+      <section class="section bg-white" aria-labelledby="testimonials-title">
+        <div class="container-site">
+          <SectionHeading id="testimonials-title" eyebrow="Client reviews" title="What our *clients* say" intro="Word-for-word reviews from clients we have worked with on Fiverr." />
+          <div class="mt-12 grid gap-4 lg:grid-cols-12">
+            <figure class="relative flex flex-col overflow-hidden rounded-3xl bg-brand-lime-tint p-8 sm:p-10 lg:col-span-5">
+              <span class="font-display text-[9rem] leading-[0.7] font-bold text-brand-lime" aria-hidden="true">“</span>
+              <blockquote class="mt-2">
+                <p class="font-display text-2xl leading-snug font-semibold text-brand-green-dark sm:text-3xl">{featuredReview.quote}</p>
+              </blockquote>
+              <figcaption class="mt-auto flex items-center gap-3 pt-10">
+                <span class="flex h-11 w-11 items-center justify-center rounded-full bg-brand-green-dark font-display font-bold text-brand-lime" aria-hidden="true">{featuredReview.name.charAt(0)}</span>
+                <span>
+                  <span class="block font-bold text-brand-green-dark">{featuredReview.name}</span>
+                  <span class="text-sm text-neutral-muted">{[featuredReview.location, featuredReview.source].filter(Boolean).join(' · ')}</span>
+                </span>
+              </figcaption>
+            </figure>
+            <ul class="columns-1 gap-4 sm:columns-2 lg:col-span-7">
+              {otherReviews.map((t) => (
+                <li class="mb-4 break-inside-avoid rounded-3xl border border-neutral-line bg-neutral-light p-6">
+                  <figure>
+                    <p class="flex gap-0.5 text-brand-green" role="img" aria-label="5 out of 5 stars">
+                      {[1, 2, 3, 4, 5].map(() => <Icon name="star" size={15} class="fill-current" />)}
+                    </p>
+                    <blockquote class="mt-3">
+                      <p>“{t.quote}”</p>
+                    </blockquote>
+                    <figcaption class="mt-4 text-sm">
+                      <span class="font-bold text-brand-green-dark">{t.name}</span>
+                      <span class="text-neutral-muted"> · {[t.location, t.source].filter(Boolean).join(' · ')}</span>
+                    </figcaption>
+                  </figure>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <CtaBand title={finalCta.title} text={finalCta.text} cta={finalCta.cta} />
+</BaseLayout>

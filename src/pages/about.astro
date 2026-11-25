@@ -1,0 +1,100 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Icon from '../components/Icon.astro';
+import Placeholder from '../components/Placeholder.astro';
+import Highlight from '../components/Highlight.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { stats, site } from '../content/site';
+import { aboutPage, story, founder, values, vision } from '../content/about';
+import founderPhoto from '../assets/about/founder-md-nasirul-islam.jpg';
+---
+
+<BaseLayout
+  title="About Us | Halal Brand Social Media Agency in Rangpur, Bangladesh"
+  description="DMarketing Zone is a social media and marketing agency for halal and ethical e-commerce brands, founded by Md Nasirul Islam and based in Rangpur, Bangladesh."
+>
+  <PageHero eyebrow={aboutPage.eyebrow} title={aboutPage.title} intro={aboutPage.intro} />
+
+  <!-- STORY: problem → answer -->
+  <section class="section" aria-label="Our story">
+    <div class="container-site grid gap-4 md:grid-cols-2">
+      <div class="card p-8 sm:p-10">
+        <p class="font-sans text-sm font-bold tracking-wider text-neutral-muted uppercase">{story.problemTitle}</p>
+        <p class="mt-5 font-display text-2xl leading-snug font-semibold text-brand-green-dark">{story.problem}</p>
+      </div>
+      <div class="on-dark rounded-3xl bg-brand-green-dark p-8 text-white sm:p-10">
+        <p class="font-sans text-sm font-bold tracking-wider text-brand-lime uppercase">{story.answerTitle}</p>
+        <p class="mt-5 font-display text-2xl leading-snug font-semibold text-white">{story.answer}</p>
+      </div>
+    </div>
+    <div class="container-site mt-4">
+      <ul class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+        {
+          stats.map((s) => (
+            <li class="rounded-3xl bg-brand-lime-tint p-5 text-center">
+              <p class="font-display text-3xl font-bold text-brand-green-dark">{s.value}</p>
+              <p class="mt-1 text-sm text-neutral-muted">{s.label}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- FOUNDER -->
+  <section class="section bg-white" aria-labelledby="founder-title">
+    <div class="container-site grid items-center gap-12 lg:grid-cols-12">
+      <div class="relative mx-auto w-[calc(100%-1rem)] max-w-sm lg:col-span-5">
+        <div class="absolute -inset-2 rotate-3 rounded-[2rem] bg-brand-lime sm:-inset-3" aria-hidden="true"></div>
+        <Image src={founderPhoto} alt="Md Nasirul Islam, Founder & CEO of DMarketing Zone" widths={[320, 480, 640]} sizes="(min-width: 1024px) 384px, 90vw" class="relative aspect-square w-full rounded-[2rem] object-cover" />
+      </div>
+      <div class="lg:col-span-7">
+        <p class="eyebrow">Meet the founder</p>
+        <h2 id="founder-title" class="mt-4 text-4xl font-bold sm:text-5xl">{founder.name}</h2>
+        <p class="mt-2 text-xl font-semibold text-brand-green">{founder.role}</p>
+        {founder.bio ? <p class="mt-6 max-w-xl text-lg text-neutral-muted">{founder.bio}</p> : <div class="mt-6"><Placeholder note="short founder bio" /></div>}
+        <div class="mt-8 flex items-center gap-3 rounded-2xl bg-neutral-light p-4">
+          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-green-dark text-brand-lime"><Icon name="map-pin" size={20} /></span>
+          <p>Based in <strong class="text-brand-green-dark">{site.address.region}, {site.address.country}</strong>. Serving clients worldwide.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="section" aria-labelledby="values-title">
+    <div class="container-site">
+      <div class="flex flex-col items-start gap-4">
+        <SectionHeading id="values-title" eyebrow="Our values" title="How we *work*" />
+        <Placeholder note="confirm these values" />
+      </div>
+      <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          values.map((v) => (
+            <li class="card p-6">
+              <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-lime text-brand-green-dark"><Icon name={v.icon} size={24} /></span>
+              <h3 class="mt-5 text-xl font-bold">{v.title}</h3>
+              <p class="mt-2 text-neutral-muted">{v.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- VISION (future plan) -->
+  <section class="section pt-0" aria-labelledby="vision-title">
+    <div class="container-site">
+      <div class="relative overflow-hidden rounded-[2rem] border-2 border-dashed border-brand-green/40 p-8 sm:p-14">
+        <p class="inline-flex rounded-full bg-brand-green-dark px-3 py-1 text-xs font-bold tracking-wide text-white uppercase">Future plan</p>
+        <h2 id="vision-title" class="mt-5 max-w-2xl text-3xl font-bold sm:text-4xl"><Highlight text={vision.title} /></h2>
+        <p class="mt-5 max-w-3xl text-lg text-neutral-muted">{vision.text}</p>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>

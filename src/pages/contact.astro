@@ -1,0 +1,197 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import BrandIcon from '../components/BrandIcon.astro';
+import Button from '../components/Button.astro';
+import { site, liveSocials, whatsappWith } from '../content/site';
+import { niches, serviceOptions, budgets } from '../content/contact';
+
+const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
+const wa = whatsappWith('Assalamu alaikum, I’d like to talk about social media for my brand.');
+const a = site.address;
+const field = 'mt-2 block w-full rounded-2xl border border-neutral-line bg-white px-4 py-3 text-base text-neutral-dark transition-colors placeholder:text-neutral-muted/70 hover:border-brand-green/50 focus:border-brand-green focus:outline-none focus:ring-4 focus:ring-brand-lime/40';
+const label = 'block font-semibold text-brand-green-dark';
+---
+
+<BaseLayout
+  title="Contact Us | Book a Free Strategy Call"
+  description="Tell us about your halal or ethical brand. Book a free strategy call, chat on WhatsApp or email hello@dmarketingzone.com."
+>
+  <PageHero eyebrow="Contact" title="Let’s talk about your *brand*" intro="Fill in the form and we’ll reply with next steps, usually with a time for a free strategy call. Prefer to chat? Message us on WhatsApp." />
+
+  <section class="section" aria-label="Contact options">
+    <div class="container-site grid gap-8 lg:grid-cols-12">
+      <!-- FORM -->
+      <div class="card p-6 sm:p-10 lg:col-span-8">
+        <h2 class="text-2xl font-bold">Tell us about your brand</h2>
+        <p class="mt-2 text-neutral-muted">Fields marked <span aria-hidden="true">*</span><span class="sr-only">with a star</span> are required.</p>
+
+        <form id="contact-form" class="mt-8 grid gap-6 sm:grid-cols-2" action="https://api.web3forms.com/submit" method="POST" novalidate data-key={accessKey}>
+          <input type="hidden" name="access_key" value={accessKey} />
+          <input type="hidden" name="subject" value="New enquiry from dmarketingzone.com" />
+          <input type="hidden" name="from_name" value="DMarketing Zone website" />
+          <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+          <div>
+            <label for="name" class={label}>Your name *</label>
+            <input id="name" name="name" type="text" autocomplete="name" required class={field} />
+          </div>
+          <div>
+            <label for="email" class={label}>Email *</label>
+            <input id="email" name="email" type="email" autocomplete="email" required class={field} />
+          </div>
+          <div>
+            <label for="brand" class={label}>Brand name *</label>
+            <input id="brand" name="brand" type="text" autocomplete="organization" required class={field} />
+          </div>
+          <div>
+            <label for="link" class={label}>Website or Instagram link</label>
+            <input id="link" name="link" type="text" inputmode="url" placeholder="https://" class={field} />
+          </div>
+          <div>
+            <label for="niche" class={label}>Your niche *</label>
+            <select id="niche" name="niche" required class={field}>
+              <option value="">Choose one</option>
+              {niches.map((n) => <option>{n}</option>)}
+            </select>
+          </div>
+          <div>
+            <label for="service" class={label}>Service you’re interested in</label>
+            <select id="service" name="service" class={field}>
+              {serviceOptions.map((s) => <option>{s}</option>)}
+            </select>
+          </div>
+          <div class="sm:col-span-2">
+            <label for="budget" class={label}>Monthly budget <span class="font-normal text-neutral-muted">(optional)</span></label>
+            <select id="budget" name="budget" class={field}>
+              {budgets.map((b) => <option>{b}</option>)}
+            </select>
+          </div>
+          <div class="sm:col-span-2">
+            <label for="message" class={label}>Message *</label>
+            <textarea id="message" name="message" rows="5" required class={field} placeholder="What do you sell, where do you sell it, and what would you like help with?"></textarea>
+          </div>
+
+          <div class="flex flex-col gap-4 sm:col-span-2 sm:flex-row sm:items-center">
+            <button type="submit" class="group inline-flex items-center justify-between gap-4 rounded-full bg-brand-gold py-2 pr-2 pl-6 text-base font-semibold text-brand-green-dark shadow-[0_3px_0_var(--color-brand-gold-shadow)] transition-all hover:-translate-y-0.5 hover:bg-brand-gold-hover hover:shadow-[0_5px_0_var(--color-brand-gold-shadow)] active:translate-y-[3px] active:shadow-none disabled:cursor-wait disabled:opacity-70" data-submit>
+              <span data-submit-label>Send message</span>
+              <span class="flex h-10 w-10 items-center justify-center rounded-full bg-brand-green-dark text-brand-lime transition-transform duration-300 group-hover:-rotate-12"><Icon name="send" size={18} /></span>
+            </button>
+          </div>
+
+          <div class="hidden rounded-2xl bg-brand-lime-tint p-5 sm:col-span-2" role="status" data-success>
+            <p class="flex items-center gap-2 font-bold text-brand-green-dark"><Icon name="circle-check" size={20} /> Thank you, your message has been sent.</p>
+            <p class="mt-1 text-neutral-muted">We’ll get back to you soon, in sha Allah. For a faster reply, message us on WhatsApp.</p>
+          </div>
+          <div class="hidden rounded-2xl border-2 border-brand-green-dark bg-white p-5 sm:col-span-2" role="alert" data-error>
+            <p class="flex items-center gap-2 font-bold text-brand-green-dark"><Icon name="circle-x" size={20} /> <span data-error-text>Sorry, something went wrong.</span></p>
+            <p class="mt-1 text-neutral-muted">Please try again, or contact us on WhatsApp or by email{site.email && ` at ${site.email}`}.</p>
+          </div>
+        </form>
+      </div>
+
+      <!-- DIRECT CONTACT -->
+      <aside class="space-y-4 lg:col-span-4" aria-label="Other ways to reach us">
+        {
+          wa && (
+            <div class="on-dark rounded-3xl bg-brand-green-dark p-6 text-white sm:p-8">
+              <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-lime text-brand-green-dark"><BrandIcon name="whatsapp" size={24} /></span>
+              <h2 class="mt-5 text-2xl font-bold text-white">Chat on WhatsApp</h2>
+              <p class="mt-2 text-white/80">The fastest way to reach us. {site.whatsappDisplay}</p>
+              <div class="mt-6"><Button href={wa} variant="lime" icon="whatsapp" target="_blank" rel="noopener">Open WhatsApp</Button></div>
+            </div>
+          )
+        }
+        <div class="card space-y-5 p-6 sm:p-8">
+          {
+            site.email && (
+              <a href={`mailto:${site.email}`} class="group flex items-center gap-4">
+                <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-green-tint text-brand-green"><Icon name="mail" size={20} /></span>
+                <span><span class="block text-sm text-neutral-muted">Email</span><span class="font-semibold text-brand-green-dark group-hover:underline">{site.email}</span></span>
+              </a>
+            )
+          }
+          <div class="flex items-center gap-4">
+            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-green-tint text-brand-green"><Icon name="map-pin" size={20} /></span>
+            <address class="not-italic"><span class="block text-sm text-neutral-muted">Office</span>{a.street}, {a.locality}, {a.region}, {a.country}</address>
+          </div>
+          {
+            liveSocials.length > 0 && (
+              <div class="border-t border-neutral-line pt-5">
+                <p class="text-sm text-neutral-muted">Follow us</p>
+                <ul class="mt-3 flex gap-2">
+                  {liveSocials.map((s) => (
+                    <li>
+                      <a href={s.url} target="_blank" rel="noopener" class="flex h-11 w-11 items-center justify-center rounded-full bg-brand-green-dark text-white transition-colors hover:bg-brand-lime hover:text-brand-green-dark">
+                        <BrandIcon name={s.icon} size={18} />
+                        <span class="sr-only">{s.name} (opens in a new tab)</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          }
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#contact-form');
+  if (form) {
+    // Pre-select a service from the link, e.g. /contact?service=ramadan
+    const params = new URLSearchParams(location.search);
+    if (params.get('service') === 'ramadan') {
+      const sel = form.querySelector<HTMLSelectElement>('#service');
+      if (sel) sel.value = 'Ramadan & Eid Campaign Planning';
+    }
+
+    const success = form.querySelector<HTMLElement>('[data-success]')!;
+    const error = form.querySelector<HTMLElement>('[data-error]')!;
+    const errorText = form.querySelector<HTMLElement>('[data-error-text]')!;
+    const submit = form.querySelector<HTMLButtonElement>('[data-submit]')!;
+    const submitLabel = form.querySelector<HTMLElement>('[data-submit-label]')!;
+
+    const showError = (msg: string) => {
+      errorText.textContent = msg;
+      error.classList.remove('hidden');
+      success.classList.add('hidden');
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      error.classList.add('hidden');
+      if (!form.checkValidity()) {
+        const firstInvalid = form.querySelector<HTMLElement>(':invalid');
+        firstInvalid?.focus();
+        form.reportValidity();
+        return;
+      }
+      if (!form.dataset.key) {
+        showError('The form is not connected yet.');
+        return;
+      }
+      submit.disabled = true;
+      submitLabel.textContent = 'Sending…';
+      try {
+        const res = await fetch(form.action, { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(form) });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.success !== false) {
+          form.reset();
+          success.classList.remove('hidden');
+          success.focus();
+        } else {
+          showError('Sorry, your message could not be sent.');
+        }
+      } catch {
+        showError('Sorry, your message could not be sent. Please check your internet connection.');
+      } finally {
+        submit.disabled = false;
+        submitLabel.textContent = 'Send message';
+      }
+    });
+  }
+</script>

@@ -16,10 +16,10 @@
 | Address | Munshipara Mor, Rangpur Sadar, Rangpur, Bangladesh |
 | Website | dmarketingzone.com |
 | Username (all platforms) | @dmarketingzone |
-| Email | `[PLACEHOLDER: agency email, e.g. hello@dmarketingzone.com]` |
-| Phone / WhatsApp | `[PLACEHOLDER: WhatsApp number in international format]` |
+| Email | hello@dmarketingzone.com |
+| Phone / WhatsApp | +880 1614-102252 (wa.me/8801614102252) |
 | Fiverr agency profile URL | `[PLACEHOLDER: Fiverr URL]` |
-| Social URLs | Instagram / Facebook / LinkedIn / TikTok / YouTube / Pinterest / X — all @dmarketingzone `[PLACEHOLDER: confirm which accounts are live]` |
+| Social URLs | Live: facebook.com/dmarketingzone, instagram.com/dmarketingzone, x.com/D_marketingzone (on X the handle is @D_marketingzone). LinkedIn / TikTok / YouTube / Pinterest `[PLACEHOLDER: not live yet]` |
 
 **Scope rule:** This is the AGENCY brand only. Do not mention or link to the founder's personal brand (no mdnasirulislam.com, no @nasirulislambd, no personal Fiverr or LinkedIn). The founder appears only as "Founder & CEO".
 
@@ -101,6 +101,7 @@ Testimonials: `[PLACEHOLDER: real client testimonials with permission]`.
 | **Kanz** | Modest menswear / Islamic traditional fashion e-commerce (chechia hats, accessories) | Social media content (our strongest halal e-commerce sample) |
 | **Hebah** | Islamic fitness coach | Instagram Reel editing |
 | **Our Little Muslims** | Muslim education / parenting content | Content creation |
+| **A La Turca** | Turkish & Mediterranean restaurant / catering | Food posts, carousels, Reels and Reel covers (permission to showcase confirmed by the owner, 25 Nov 2026) |
 
 `[PLACEHOLDER: case study details: challenge, what we did, results (real numbers only), visuals, client permission]`
 
@@ -121,14 +122,14 @@ Required label text on the site, for example: *"Concept project: a demo brand cr
 - **Horizontal lockup:** icon + "DMarketing Zone" wordmark, with **"Zone" in lime green**.
 - **Icon-only** version for favicon, avatar and small spaces.
 - Use the supplied logo files exactly. Do not redraw, recolor or distort them.
-- Files: `[PLACEHOLDER: /public/brand/logo-horizontal.svg, logo-icon.svg, plus PNG fallbacks]`
+- Files: horizontal logo PNG in `src/assets/brand/logo-horizontal.png`, square icon in `src/assets/brand/logo-icon-square.png` (SVG versions `[PLACEHOLDER]`)
 
 ### Colors
 | Token | Hex | Use |
 |---|---|---|
 | `brand-green` (primary) | `#107552` | Headlines, footer background, primary UI |
 | `brand-lime` (accent) | `#83C912` | Highlight words, icons, accents, "Zone" in the wordmark |
-| `brand-gold` (CTA) | `[PLACEHOLDER: exact gold hex from Canva brand kit]` | CTA buttons only |
+| `brand-gold` (CTA) | `#C9A227` (confirmed 25 Nov 2026) | CTA buttons only |
 | Neutral dark | `[PLACEHOLDER]` | Body text |
 | Neutral light | `[PLACEHOLDER]` | Backgrounds / sections |
 

@@ -1,0 +1,44 @@
+---
+/* The closing call-to-action used at the bottom of pages. */
+import Highlight from './Highlight.astro';
+import Button from './Button.astro';
+import GrowthLine from './GrowthLine.astro';
+import { strategyCallLink, whatsappWith } from '../content/site';
+interface Props {
+  title?: string;
+  text?: string;
+  cta?: string;
+  href?: string;
+  whatsappText?: string;
+}
+const {
+  title = 'Ready to grow your *halal* brand?',
+  text = 'Tell us about your brand and goals. We’ll show you what a clear social media plan could look like for you.',
+  cta = 'Book a Free Strategy Call',
+  href = strategyCallLink,
+  whatsappText = 'Assalamu alaikum, I’d like to talk about social media for my brand.',
+} = Astro.props;
+const wa = whatsappWith(whatsappText);
+---
+
+<section class="section pb-32 sm:pb-36" aria-labelledby="cta-title">
+  <div class="container-site">
+    <div class="relative overflow-hidden rounded-[2rem] bg-brand-lime-tint px-6 py-14 sm:px-14 sm:py-20">
+      <GrowthLine class="pointer-events-none absolute -right-6 -bottom-6 w-56 text-brand-lime sm:w-80" strokeWidth={14} />
+      <div class="relative max-w-2xl">
+        <h2 id="cta-title" class="text-3xl leading-[1.1] font-bold sm:text-5xl">
+          <Highlight text={title} />
+        </h2>
+        <p class="mt-5 text-lg text-neutral-muted">{text}</p>
+        <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <Button href={href} size="lg">{cta}</Button>
+          {wa && (
+            <Button href={wa} variant="outline" size="lg" icon="whatsapp" target="_blank" rel="noopener">
+              Chat on WhatsApp
+            </Button>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

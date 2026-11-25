@@ -1,0 +1,27 @@
+---
+/*
+  Logo: the supplied DMarketing Zone logo file, used exactly as supplied
+  (never redrawn or recolored). The file lives in src/assets/brand/.
+  On dark green backgrounds the logo sits on a white badge so the
+  green parts of the logo stay visible.
+*/
+import { Image } from 'astro:assets';
+import logo from '../assets/brand/logo-horizontal.png';
+interface Props {
+  onDark?: boolean;
+  class?: string;
+}
+const { onDark = false, class: className = '' } = Astro.props;
+---
+
+<span class:list={['inline-flex', onDark && 'rounded-xl bg-white px-3 py-2', className]}>
+  <Image
+    src={logo}
+    alt="DMarketing Zone"
+    height={onDark ? 48 : 56}
+    densities={[1, 2]}
+    format="webp"
+    loading="eager"
+    class:list={['w-auto', onDark ? 'h-12' : 'h-11 lg:h-14']}
+  />
+</span>

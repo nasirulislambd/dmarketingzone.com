@@ -1,0 +1,19 @@
+---
+/*
+  Highlight: turns 'Built for *halal* brands' into a headline where the
+  word between *stars* gets the lime highlighter (like the social posts).
+  On dark green backgrounds the word is shown in lime instead.
+*/
+interface Props {
+  text: string;
+  onDark?: boolean;
+}
+const { text, onDark = false } = Astro.props;
+const parts = text.split(/\*(.+?)\*/g);
+---
+
+{
+  parts.map((part, i) =>
+    i % 2 === 1 ? <span class={onDark ? 'text-brand-lime' : 'hl-marker'}>{part}</span> : part,
+  )
+}
