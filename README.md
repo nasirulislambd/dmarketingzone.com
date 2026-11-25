@@ -50,7 +50,7 @@ then add it as `PUBLIC_WEB3FORMS_KEY` in your hosting settings (or in a local `.
    - Build command: `npm run build`
    - Build output directory: `dist`
 3. Environment variables (Production): `PUBLIC_WEB3FORMS_KEY` = your Web3Forms access key.
-   The Node version is read from `.node-version`.
+   Node version: `.node-version` says 22 (Astro needs 22.23 or newer). You can also set `NODE_VERSION=22` as a variable.
 4. **Save and Deploy**. Every push to `main` then publishes the site automatically.
 5. **Custom domains** → add `dmarketingzone.com` (and `www.dmarketingzone.com`).
 
