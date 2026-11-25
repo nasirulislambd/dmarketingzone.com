@@ -22,7 +22,7 @@ export const founder = {
   name: 'Md Nasirul Islam',
   role: 'Founder & CEO',
   // Written from the founder's own text (25 Nov 2026)
-  bio: 'I’m an AI automation and halal social media strategist. For more than 4 years, I’ve helped halal e‑commerce, organic food, supplement and ethical brands grow online. At DMarketing Zone, I combine that experience with AI automation tools like Make, Zapier and n8n to speed up content workflows, reporting and lead follow‑up.' as string | null,
+  bio: 'Nasirul Islam is an AI automation and halal social media strategist. For more than 4 years, he has helped halal e‑commerce, organic food, supplement and ethical brands grow online. At DMarketing Zone, he combines that experience with AI automation tools like Make, Zapier and n8n to speed up content workflows, reporting and lead follow‑up.' as string | null,
 };
 
 // [PLACEHOLDER] Draft values based on how we work. Please confirm or edit.
