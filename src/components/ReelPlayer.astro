@@ -1,0 +1,26 @@
+---
+/* A vertical Reel video. It only downloads when the visitor presses play. */
+interface Props {
+  src: string;
+  poster: string;
+  title: string;
+  class?: string;
+}
+const { src, poster, title, class: className = '' } = Astro.props;
+---
+
+<figure class:list={['overflow-hidden rounded-3xl bg-brand-green-dark', className]}>
+  <video
+    class="aspect-[9/16] w-full object-cover"
+    src={src}
+    poster={poster}
+    preload="none"
+    controls
+    playsinline
+    width="540"
+    height="960"
+    aria-label={title}
+  >
+  </video>
+  <figcaption class="sr-only">{title}</figcaption>
+</figure>

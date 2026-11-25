@@ -1,0 +1,19 @@
+---
+/* Top section for inner pages (Services, Work, About, Contact). */
+import SectionHeading from './SectionHeading.astro';
+import GrowthLine from './GrowthLine.astro';
+interface Props {
+  eyebrow: string;
+  title: string;
+  intro?: string;
+}
+const { eyebrow, title, intro } = Astro.props;
+---
+
+<section class="relative overflow-hidden border-b border-neutral-line" aria-labelledby="page-title">
+  <GrowthLine class="pointer-events-none absolute -right-10 bottom-0 hidden w-[28rem] text-brand-lime/70 md:block" strokeWidth={9} />
+  <div class="container-site relative py-16 sm:py-20 lg:py-24">
+    <SectionHeading id="page-title" level="h1" eyebrow={eyebrow} title={title} intro={intro} />
+    <slot />
+  </div>
+</section>

@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import GrowthLine from '../components/GrowthLine.astro';
+import Highlight from '../components/Highlight.astro';
+---
+
+<BaseLayout title="Page not found" description="Sorry, we couldn’t find that page." noindex>
+  <section class="relative overflow-hidden">
+    <GrowthLine class="pointer-events-none absolute right-0 bottom-0 w-[30rem] text-brand-lime/60" strokeWidth={9} />
+    <div class="container-site relative py-24 sm:py-32">
+      <p class="font-display text-8xl font-bold text-transparent [-webkit-text-stroke:2px_var(--color-brand-green)] sm:text-9xl">404</p>
+      <h1 class="mt-6 max-w-xl text-4xl font-bold sm:text-5xl"><Highlight text="This page took a *wrong* turn" /></h1>
+      <p class="mt-5 max-w-lg text-lg text-neutral-muted">The page you’re looking for doesn’t exist or has moved. Let’s get you back on track.</p>
+      <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+        <Button href="/" size="lg">Back to home</Button>
+        <Button href="/contact" variant="outline" size="lg">Contact us</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

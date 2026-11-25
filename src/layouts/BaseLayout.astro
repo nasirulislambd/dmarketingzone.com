@@ -19,9 +19,11 @@ interface Props {
   description: string;
   image?: string | null;
   noindex?: boolean;
+  /** Minimal header with no menu (used on the Ramadan landing page) */
   minimalNav?: boolean;
+  headerCta?: { label: string; href: string };
 }
-const { title, description, image = site.ogImage, noindex = false } = Astro.props;
+const { title, description, image = site.ogImage, noindex = false, minimalNav = false, headerCta } = Astro.props;
 
 const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
 const canonical = new URL(Astro.url.pathname, site.url).href;
@@ -83,7 +85,7 @@ const schema = {
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   </head>
   <body class="flex min-h-screen flex-col">
-    <Header />
+    <Header minimal={minimalNav} ctaLabel={headerCta?.label} ctaHref={headerCta?.href} />
     <main id="main" class="flex-1">
       <slot />
     </main>

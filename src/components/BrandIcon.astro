@@ -1,0 +1,27 @@
+---
+/* Brand logos (WhatsApp, Instagram, ...) from simple-icons, drawn in the current text color. */
+import { siWhatsapp, siInstagram, siFacebook, siX, siTiktok, siYoutube, siPinterest, siFiverr } from 'simple-icons';
+const icons: Record<string, { path: string; title: string }> = {
+  whatsapp: siWhatsapp, instagram: siInstagram, facebook: siFacebook, x: siX,
+  tiktok: siTiktok, youtube: siYoutube, pinterest: siPinterest, fiverr: siFiverr,
+};
+interface Props { name: string; size?: number; class?: string }
+const { name, size = 20, class: className } = Astro.props;
+const icon = icons[name];
+---
+
+{
+  icon ? (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor" class={className} aria-hidden="true" focusable="false">
+      <path d={icon.path} />
+    </svg>
+  ) : (
+    <span
+      class:list={['inline-flex items-center justify-center font-sans leading-none font-extrabold', className]}
+      style={`width:${size}px;height:${size}px;font-size:${Math.round(size * 0.7)}px`}
+      aria-hidden="true"
+    >
+      {name === 'linkedin' ? 'in' : name.charAt(0).toUpperCase()}
+    </span>
+  )
+}

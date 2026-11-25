@@ -1,0 +1,118 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ReelPlayer from '../components/ReelPlayer.astro';
+import Placeholder from '../components/Placeholder.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { projects, CONCEPT_LABEL, type Project } from '../content/work';
+
+const filters = ['All', ...new Set(projects.map((p) => p.filter))];
+const groups: { id: string; title: string; intro: string; items: Project[] }[] = [
+  {
+    id: 'client-work',
+    title: 'Client work',
+    intro: 'Work we have done for real clients, shown with their permission.',
+    items: projects.filter((p) => p.type === 'client'),
+  },
+  {
+    id: 'concept-projects',
+    title: 'Concept projects',
+    intro: 'Demo brands we created ourselves to show our approach in specific halal niches. They are not real clients.',
+    items: projects.filter((p) => p.type === 'concept'),
+  },
+];
+---
+
+<BaseLayout
+  title="Our Work | Halal Brand Social Media Portfolio"
+  description="Social media content for halal and ethical brands: Kanz (modest menswear), A La Turca (restaurant), Hebah, Our Little Muslims, plus clearly labelled concept projects."
+>
+  <PageHero eyebrow="Our work" title="Content we’ve made for *halal* brands" intro="Product posts, carousels and Reels for real clients, plus concept projects that show how we would launch a halal brand.">
+    <div class="mt-10 flex flex-wrap gap-2" role="group" aria-label="Filter by category" data-filters>
+      {
+        filters.map((f, i) => (
+          <button
+            type="button"
+            data-filter={f}
+            aria-pressed={i === 0 ? 'true' : 'false'}
+            class="rounded-full border border-neutral-line bg-white px-4 py-2 text-sm font-semibold text-brand-green-dark transition-colors hover:border-brand-green-dark aria-pressed:border-brand-green-dark aria-pressed:bg-brand-green-dark aria-pressed:text-white"
+          >
+            {f}
+          </button>
+        ))
+      }
+    </div>
+  </PageHero>
+
+  {
+    groups.map((g) => (
+      <section class="section pb-4" aria-labelledby={`${g.id}-title`} data-group>
+        <div class="container-site">
+          <div class="max-w-2xl">
+            <h2 id={`${g.id}-title`} class="text-3xl font-bold sm:text-4xl">{g.title}</h2>
+            <p class="mt-3 text-lg text-neutral-muted">{g.intro}</p>
+          </div>
+          <div class="mt-10 space-y-6">
+            {g.items.map((p) => (
+              <article id={p.slug} class="card scroll-mt-28 overflow-hidden p-6 sm:p-8" data-category={p.filter} aria-labelledby={`${p.slug}-title`}>
+                <div class="grid gap-8 lg:grid-cols-12">
+                  <div class="lg:col-span-4">
+                    <span class:list={['inline-block rounded-full px-3 py-1 text-xs font-bold uppercase', p.type === 'concept' ? 'bg-brand-green-dark text-white' : 'bg-brand-lime text-brand-green-dark']}>
+                      {p.type === 'concept' ? CONCEPT_LABEL : 'Client work'}
+                    </span>
+                    <h3 id={`${p.slug}-title`} class="mt-4 text-3xl font-bold">{p.name}</h3>
+                    <p class="mt-1 font-semibold text-brand-green">{p.category}</p>
+                    <p class="mt-4 text-neutral-muted">{p.summary}</p>
+                    <ul class="mt-5 flex flex-wrap gap-2">
+                      {p.work.map((w) => <li class="rounded-full bg-neutral-light px-3 py-1 text-sm">{w}</li>)}
+                    </ul>
+                    {p.label && (
+                      <p class="mt-6 rounded-2xl border-l-4 border-brand-lime bg-brand-lime-tint px-4 py-3 text-sm font-semibold text-brand-green-dark">{p.label}</p>
+                    )}
+                  </div>
+                  <div class="lg:col-span-8">
+                    {p.cover ? (
+                      <ul class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                        {p.reel && (
+                          <li class="row-span-2">
+                            <ReelPlayer {...p.reel} class="h-full [&_video]:h-full" />
+                          </li>
+                        )}
+                        {[p.cover, ...p.gallery].map((img) => (
+                          <li>
+                            <Image src={img.src} alt={img.alt} widths={[240, 360, 480]} sizes="(min-width: 1024px) 240px, (min-width: 640px) 30vw, 45vw" class="aspect-[4/5] w-full rounded-2xl object-cover" />
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <div class="flex h-full min-h-48 items-center justify-center rounded-2xl bg-neutral-light p-6">
+                        <Placeholder note={`${p.name} work visuals`} />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <CtaBand title="Want content like this for your *brand*?" />
+</BaseLayout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+  const items = document.querySelectorAll<HTMLElement>('[data-category]');
+  const groups = document.querySelectorAll<HTMLElement>('[data-group]');
+  buttons.forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const f = btn.dataset.filter;
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      items.forEach((el) => el.classList.toggle('hidden', f !== 'All' && el.dataset.category !== f));
+      groups.forEach((g) => g.classList.toggle('hidden', !g.querySelector('[data-category]:not(.hidden)')));
+    }),
+  );
+</script>

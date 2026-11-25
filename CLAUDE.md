@@ -107,7 +107,7 @@ neutral-light:[PLACEHOLDER]  (section backgrounds)
 - Footer: dark green with a curved shape at the top edge
 - Fonts: `[PLACEHOLDER]`. Use a clean sans-serif until confirmed, with fonts self-hosted or optimized
 - Check color contrast: lime on white may fail WCAG for body text, so use lime for accents/large text only
-- Logo files go in `public/brand/`. Use them as supplied and never redraw the logo in code
+- Logo files go in `src/assets/brand/` (favicons and OG image in `public/brand/`). Use them as supplied and never redraw the logo in code
 
 ---
 

@@ -27,11 +27,11 @@ export const site = {
     countryCode: 'BD',
   },
 
-  // [PLACEHOLDER] Set to the real agency email, e.g. 'hello@dmarketingzone.com'
-  email: null as string | null,
+  email: 'hello@dmarketingzone.com' as string | null,
 
-  // [PLACEHOLDER] WhatsApp number in international format, digits only, e.g. '8801XXXXXXXXX'
-  whatsapp: null as string | null,
+  // WhatsApp number in international format, digits only (no +, no spaces)
+  whatsapp: '8801614102252' as string | null,
+  whatsappDisplay: '+880 1614-102252',
 
   // [PLACEHOLDER] Fiverr agency profile URL
   fiverrUrl: null as string | null,
@@ -44,15 +44,14 @@ export const site = {
   logoIcon: '/brand/icon-512.png',
 
   // Image shown when a link to the site is shared (1200x630). Made from the supplied logo.
-  // Replace public/brand/og-image.png with a designed one any time.
   ogImage: '/brand/og-image.png' as string | null,
 };
 
 /* Proof stats. Use EXACTLY these. Never round, inflate or change them. */
 export const stats = [
-  { value: '4.9★', label: 'rating' },
+  { value: '4.9★', label: 'average rating' },
   { value: '93', label: 'reviews' },
-  { value: '138', label: 'orders' },
+  { value: '138', label: 'orders completed' },
   { value: '4 years', label: 'on Fiverr' },
   { value: '100+', label: 'clients worldwide' },
 ];
@@ -66,21 +65,24 @@ export const nav = [
 ];
 
 /*
-  Social accounts. All use @dmarketingzone.
-  [PLACEHOLDER] Set live: true only for accounts that are live and checked.
-  Only live accounts are shown on the site and in the schema markup.
+  Social accounts. Only accounts with live: true are shown on the site
+  and in the Google schema markup. Set live: true when an account goes live.
+  Note: on X the handle is @D_marketingzone.
 */
 export const socials = [
-  { name: 'Instagram', url: 'https://www.instagram.com/dmarketingzone', live: false },
-  { name: 'Facebook', url: 'https://www.facebook.com/dmarketingzone', live: false },
-  { name: 'LinkedIn', url: 'https://www.linkedin.com/company/dmarketingzone', live: false },
-  { name: 'TikTok', url: 'https://www.tiktok.com/@dmarketingzone', live: false },
-  { name: 'YouTube', url: 'https://www.youtube.com/@dmarketingzone', live: false },
-  { name: 'Pinterest', url: 'https://www.pinterest.com/dmarketingzone', live: false },
-  { name: 'X', url: 'https://x.com/dmarketingzone', live: false },
+  { name: 'Facebook', icon: 'facebook', url: 'https://www.facebook.com/dmarketingzone', live: true },
+  { name: 'Instagram', icon: 'instagram', url: 'https://www.instagram.com/dmarketingzone/', live: true },
+  { name: 'X', icon: 'x', url: 'https://x.com/D_marketingzone', live: true },
+  { name: 'LinkedIn', icon: 'linkedin', url: 'https://www.linkedin.com/company/dmarketingzone', live: false },
+  { name: 'TikTok', icon: 'tiktok', url: 'https://www.tiktok.com/@dmarketingzone', live: false },
+  { name: 'YouTube', icon: 'youtube', url: 'https://www.youtube.com/@dmarketingzone', live: false },
+  { name: 'Pinterest', icon: 'pinterest', url: 'https://www.pinterest.com/dmarketingzone', live: false },
 ];
 
 export const liveSocials = socials.filter((s) => s.live);
 
 export const whatsappLink = site.whatsapp ? `https://wa.me/${site.whatsapp}` : null;
+/** WhatsApp link with a ready-made first message */
+export const whatsappWith = (text: string) =>
+  site.whatsapp ? `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}` : null;
 export const strategyCallLink = site.bookingUrl ?? '/contact';

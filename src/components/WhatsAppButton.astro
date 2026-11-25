@@ -1,28 +1,24 @@
 ---
-/*
-  Floating WhatsApp button.
-  It appears on the live site only after the WhatsApp number is set in
-  src/content/site.ts. While you preview locally (npm run dev) it is shown
-  as a placeholder so you can see where it sits.
-*/
-import { whatsappLink } from '../content/site';
-import Icon from './Icon.astro';
-const show = whatsappLink || import.meta.env.DEV;
+/* Floating WhatsApp button (shown on every page once a number is set in src/content/site.ts). */
+import { whatsappWith } from '../content/site';
+import BrandIcon from './BrandIcon.astro';
+const link = whatsappWith('Assalamu alaikum, I found DMarketing Zone on your website.');
 ---
 
 {
-  show && (
+  link && (
     <a
-      href={whatsappLink ?? '#'}
-      target={whatsappLink ? '_blank' : undefined}
-      rel={whatsappLink ? 'noopener' : undefined}
-      class="fixed right-4 bottom-4 z-30 inline-flex items-center gap-2 rounded-full bg-brand-green py-3 pr-5 pl-4 font-semibold text-white shadow-lg ring-2 ring-white transition-colors hover:bg-brand-green-dark sm:right-6 sm:bottom-6"
-      title={whatsappLink ? undefined : '[PLACEHOLDER: WhatsApp number]. Hidden on the live site until set.'}
+      href={link}
+      target="_blank"
+      rel="noopener"
+      class="group fixed right-4 bottom-4 z-30 inline-flex items-center gap-2 rounded-full bg-brand-green-dark p-1.5 font-semibold text-white shadow-[0_10px_30px_-8px_rgba(10,61,43,0.6)] ring-2 ring-white transition-all hover:-translate-y-0.5 sm:right-6 sm:bottom-6 sm:pr-5"
     >
-      <Icon name="message-circle" size={22} />
+      <span class="flex h-11 w-11 items-center justify-center rounded-full bg-brand-lime text-brand-green-dark">
+        <BrandIcon name="whatsapp" size={22} />
+      </span>
       <span class="hidden sm:inline">Chat on WhatsApp</span>
       <span class="sr-only sm:hidden">Chat on WhatsApp</span>
-      {whatsappLink && <span class="sr-only"> (opens in a new tab)</span>}
+      <span class="sr-only"> (opens in a new tab)</span>
     </a>
   )
 }

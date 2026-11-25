@@ -26,10 +26,17 @@ To make the final website files: `npm run build` (output goes to the `dist/` fol
 | What | File |
 |---|---|
 | Email, WhatsApp, social links, stats | `src/content/site.ts` |
+| Services, Work, About, Contact, Ramadan page text | `src/content/services.ts`, `work.ts`, `about.ts`, `contact.ts`, `ramadan.ts` |
 | Home page text, portfolio cards, testimonials | `src/content/home.ts` |
 | Colors and fonts (design tokens) | `src/styles/global.css` |
 | Header / footer layout | `src/components/Header.astro`, `src/components/Footer.astro` |
 | Logo | `src/assets/brand/` (favicons and share image in `public/brand/`) |
 | Portfolio images | `src/assets/work/<brand>/` (the site makes fast WebP copies automatically) |
+| Reels (videos) | `public/media/reels/` (keep each under ~4 MB) |
 
 Anything not confirmed yet shows on the page as a yellow `[PLACEHOLDER: ...]` box and is listed in `TODO.md`.
+
+## Contact form
+
+The form uses Web3Forms (free). Get an access key at https://web3forms.com using hello@dmarketingzone.com,
+then add it as `PUBLIC_WEB3FORMS_KEY` in your hosting settings (or in a local `.env` file, see `.env.example`).

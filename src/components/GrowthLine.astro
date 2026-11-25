@@ -1,0 +1,15 @@
+---
+/* Decorative rising line with an arrow head: the "growth" motif used across the site. */
+interface Props { class?: string; strokeWidth?: number }
+const { class: className = '', strokeWidth = 10 } = Astro.props;
+---
+
+<svg viewBox="0 0 400 220" fill="none" class={className} aria-hidden="true" focusable="false">
+  <path
+    d="M8 206 L118 108 L178 150 L330 34"
+    stroke="currentColor"
+    stroke-width={strokeWidth}
+    stroke-linecap="round"
+    stroke-linejoin="round"></path>
+  <path d="M300 22 L352 18 L346 70" stroke="currentColor" stroke-width={strokeWidth} stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
