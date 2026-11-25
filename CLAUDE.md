@@ -97,7 +97,7 @@ Define these as Tailwind theme tokens. Never hard-code random colors.
 ```
 brand-green:  #107552   (primary: headlines, footer, primary UI)
 brand-lime:   #83C912   (accent: highlighted words, icons)
-brand-gold:   [PLACEHOLDER: hex from Canva brand kit]  (CTA buttons only)
+brand-gold:   #C9A227   (CTA buttons only)
 neutral-dark: [PLACEHOLDER]  (body text)
 neutral-light:[PLACEHOLDER]  (section backgrounds)
 ```

@@ -129,7 +129,7 @@ Required label text on the site, for example: *"Concept project: a demo brand cr
 |---|---|---|
 | `brand-green` (primary) | `#107552` | Headlines, footer background, primary UI |
 | `brand-lime` (accent) | `#83C912` | Highlight words, icons, accents, "Zone" in the wordmark |
-| `brand-gold` (CTA) | `[PLACEHOLDER: exact gold hex from Canva brand kit]` (temporary on site: #C9A227) | CTA buttons only |
+| `brand-gold` (CTA) | `#C9A227` (confirmed 25 Nov 2026) | CTA buttons only |
 | Neutral dark | `[PLACEHOLDER]` | Body text |
 | Neutral light | `[PLACEHOLDER]` | Backgrounds / sections |
 

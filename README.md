@@ -40,3 +40,18 @@ Anything not confirmed yet shows on the page as a yellow `[PLACEHOLDER: ...]` bo
 
 The form uses Web3Forms (free). Get an access key at https://web3forms.com using hello@dmarketingzone.com,
 then add it as `PUBLIC_WEB3FORMS_KEY` in your hosting settings (or in a local `.env` file, see `.env.example`).
+
+## Deploy on Cloudflare Pages
+
+1. Cloudflare dashboard → **Workers & Pages** → **Create** → **Pages** → **Connect to Git** → choose `nasirulislambd/dmarketingzone.com`.
+2. Build settings:
+   - Production branch: `main`
+   - Framework preset: **Astro**
+   - Build command: `npm run build`
+   - Build output directory: `dist`
+3. Environment variables (Production): `PUBLIC_WEB3FORMS_KEY` = your Web3Forms access key.
+   The Node version is read from `.node-version`.
+4. **Save and Deploy**. Every push to `main` then publishes the site automatically.
+5. **Custom domains** → add `dmarketingzone.com` (and `www.dmarketingzone.com`).
+
+If you change an environment variable later, open **Deployments** and **Retry deployment** so the new value is used.

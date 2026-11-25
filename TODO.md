@@ -12,9 +12,8 @@ Last updated: 25 Nov 2026 (all pages built)
 
 ## 1. Must have before launch
 
-- [ ] **Gold CTA color**: the hex sent (#83C912) is the same as the lime, so a temporary gold `#C9A227` is used. Need the real gold hex from the Canva brand kit.
-- [ ] **Web3Forms access key** for the contact form (free at web3forms.com, sign up with hello@dmarketingzone.com). Put it in the host's environment settings as `PUBLIC_WEB3FORMS_KEY`. Until then the form shows "not connected yet" and points people to WhatsApp/email.
-- [ ] **Hosting**: Netlify, Vercel or Cloudflare Pages (all free). Connect this GitHub repo for automatic deploys.
+- [ ] **Web3Forms access key** for the contact form: create a NEW key at web3forms.com with hello@dmarketingzone.com (the key decides which inbox gets the messages, so don't reuse the personal-site key). Add it in Cloudflare Pages as the variable `PUBLIC_WEB3FORMS_KEY`, then redeploy. Until then the form shows "not connected yet" and points people to WhatsApp/email.
+- [ ] **Hosting**: Cloudflare Pages, connected to this GitHub repo (chosen 25 Nov 2026). Steps in README.md → "Deploy on Cloudflare Pages".
 - [ ] **Domain DNS**: point dmarketingzone.com to the chosen host.
 - [ ] **Privacy Policy**: general template only. Have it reviewed, then fill the date, hosting provider, analytics and retention placeholders.
 
@@ -37,6 +36,7 @@ Last updated: 25 Nov 2026 (all pages built)
 
 ## 3. Done
 
+- [x] Gold CTA color: `#C9A227` (confirmed)
 - [x] Logo, favicons and link-preview image (from the supplied logo files)
 - [x] Email: hello@dmarketingzone.com · WhatsApp: +880 1614-102252 (floating button, footer, contact page)
 - [x] Social: Facebook, Instagram, X (@D_marketingzone)
