@@ -22,7 +22,6 @@ Last updated: 25 Nov 2026 (site merged into main; first Cloudflare Pages product
 - [ ] **Fonts**: temporary Bricolage Grotesque (headings) + Figtree (text), both self-hosted. Confirm or send the Canva brand kit fonts.
 - [ ] **Neutral colors**: temporary warm paper `#F7F5EE` background and `#1E2B26` text.
 - [ ] **How we work** (Home): confirm the 4 drafted steps (`src/content/home.ts`).
-- [ ] **Founder bio** (About): 2–3 sentences (`src/content/about.ts`).
 - [ ] **Values** (About): confirm the 4 drafted values.
 - [ ] **Services page**: review the "Who it's for" and "What's included" drafts and the FAQ answers (`src/content/services.ts`).
 - [ ] **Pricing**: package names and prices, or keep "Get a custom quote".
@@ -43,6 +42,7 @@ Last updated: 25 Nov 2026 (site merged into main; first Cloudflare Pages product
 - [x] Testimonials: 6 real Fiverr reviews, word for word
 - [x] Portfolio: Kanz and A La Turca (client work, permission confirmed), Barakah Bites and Zaytoun Skincare (labelled concept projects), 4 Reels compressed to 1–4 MB each
 - [x] Founder photo on the About page
+- [x] Founder bio on the About page (from the founder's own text)
 - [x] Pages: Home, Services, Work, About, Contact, Ramadan & Eid 2027, Privacy Policy, 404
 - [x] GitHub repository: github.com/nasirulislambd/dmarketingzone.com
 
