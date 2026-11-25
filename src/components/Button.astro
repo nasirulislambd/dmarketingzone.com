@@ -1,0 +1,42 @@
+---
+/*
+  Button: a link styled as a button.
+  variant="gold"     → main call to action (gold, the only place gold is used)
+  variant="outline"  → secondary action on light backgrounds
+  variant="light"    → secondary action on dark green backgrounds
+*/
+interface Props {
+  href: string;
+  variant?: 'gold' | 'outline' | 'light';
+  size?: 'md' | 'lg';
+  class?: string;
+  arrow?: boolean;
+  [key: string]: unknown;
+}
+import Icon from './Icon.astro';
+const { href, variant = 'gold', size = 'md', class: className = '', arrow = false, ...rest } = Astro.props;
+
+const variants = {
+  gold: 'bg-brand-gold text-brand-green-dark hover:bg-brand-gold-hover shadow-sm',
+  outline: 'border-2 border-brand-green text-brand-green hover:bg-brand-green hover:text-white',
+  light: 'border-2 border-white/70 text-white hover:bg-white hover:text-brand-green-dark',
+};
+const sizes = {
+  md: 'px-5 py-2.5 text-sm',
+  lg: 'px-7 py-3.5 text-base',
+};
+---
+
+<a
+  href={href}
+  class:list={[
+    'inline-flex items-center justify-center gap-2 rounded-full text-center font-semibold transition-colors duration-150',
+    variants[variant],
+    sizes[size],
+    className,
+  ]}
+  {...rest}
+>
+  <slot />
+  {arrow && <Icon name="arrow-right" size={18} />}
+</a>

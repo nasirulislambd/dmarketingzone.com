@@ -1,0 +1,95 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/inter';
+
+/*
+  DMarketing Zone design tokens
+  ------------------------------------------------------------
+  These are the ONLY colors the site may use. Tailwind's default
+  color palette is switched off on purpose, so a random color like
+  "bg-red-500" will not work. Use the brand tokens below instead,
+  for example: bg-brand-green, text-brand-lime, bg-brand-gold.
+
+  Values marked TEMPORARY are stand-ins until the real values arrive
+  from the Canva brand kit. Change them here and the whole site
+  updates. They are also listed in TODO.md.
+*/
+@theme {
+  --color-*: initial;
+
+  /* Fixed basics */
+  --color-white: #ffffff;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* Brand (confirmed in BRAND_CONTEXT.md) */
+  --color-brand-green: #107552; /* primary: headlines, primary UI */
+  --color-brand-lime: #83c912; /* accent: highlights, icons. Not for small text on white */
+
+  /* Brand (derived shades, need owner approval, see TODO.md) */
+  --color-brand-green-dark: #0a3d2b; /* footer + dark bands. Lime on this = 6.0:1 contrast */
+  --color-brand-lime-deep: #5e9410; /* lime highlight word on WHITE, large headlines only (3.7:1) */
+  --color-brand-green-tint: #e7f2ec; /* soft green panels and icon circles */
+
+  /* TEMPORARY: replace with exact hex from the Canva brand kit */
+  --color-brand-gold: #e8b23a; /* CTA buttons only */
+  --color-brand-gold-hover: #d9a22a; /* CTA hover */
+
+  /* TEMPORARY: neutral colors, confirm with owner */
+  --color-neutral-dark: #1e2b26; /* body text (14.7:1 on white) */
+  --color-neutral-muted: #4a5853; /* secondary text (7.5:1 on white) */
+  --color-neutral-line: #dce5df; /* borders and dividers */
+  --color-neutral-light: #f4f7f2; /* section backgrounds */
+
+  /* Placeholder marker (dev helper, not a brand color) */
+  --color-placeholder: #fff4d6;
+  --color-placeholder-ink: #6b4e00;
+
+  /* TEMPORARY font until the Canva brand kit fonts are confirmed */
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  body {
+    @apply bg-white font-sans text-neutral-dark antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply text-brand-green;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  /* Clear, visible keyboard focus everywhere */
+  :focus-visible {
+    outline: 3px solid var(--color-brand-lime-deep);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  .on-dark :focus-visible {
+    outline-color: var(--color-brand-lime);
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+  .section {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+  .eyebrow {
+    @apply text-sm font-semibold tracking-wide text-brand-green uppercase;
+  }
+}

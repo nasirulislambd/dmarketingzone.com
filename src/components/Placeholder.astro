@@ -1,0 +1,25 @@
+---
+/*
+  Placeholder: a visible marker for information we do not have yet.
+  Every placeholder is also listed in TODO.md.
+  Search the code for "<Placeholder" to find them all.
+*/
+interface Props {
+  note: string;
+  block?: boolean;
+  class?: string;
+}
+const { note, block = false, class: className = '' } = Astro.props;
+const Tag = block ? 'div' : 'span';
+---
+
+<Tag
+  class:list={[
+    'rounded-md border border-dashed border-placeholder-ink/50 bg-placeholder px-2 py-1 font-mono text-xs text-placeholder-ink',
+    block ? 'block' : 'inline-block',
+    className,
+  ]}
+  data-placeholder
+>
+  [PLACEHOLDER: {note}]
+</Tag>
