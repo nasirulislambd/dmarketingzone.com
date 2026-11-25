@@ -6,7 +6,7 @@ When an item is done, tick it `[x]`. Anything still missing shows on the site as
 Most items are changed in one place: `src/content/site.ts` (contact, links), the other files in
 `src/content/` (page text), or `src/styles/global.css` (colors and fonts).
 
-Last updated: 25 Nov 2026 (all pages built)
+Last updated: 25 Nov 2026 (site merged into main; first Cloudflare Pages production deploy)
 
 ---
 
